@@ -2,8 +2,10 @@ var WebGameMaker = {};
 
 WebGameMaker.init = function() {
     WebGameMaker.Settings = {}
-    WebGameMaker.Settings.width = document.getElementById('canvas').width;
-    WebGameMaker.Settings.height = document.getElementById('canvas').height;
+    WebGameMaker.Settings.canvas = document.getElementById('canvas');
+    WebGameMaker.Settings.context = WebGameMaker.Settings.canvas.getContext('2d');
+    WebGameMaker.Settings.width = WebGameMaker.Settings.canvas.width;
+    WebGameMaker.Settings.height = WebGameMaker.Settings.canvas.height;
 
     var plugins = WebGameMaker.PluginManager.getPlugins();
     for (p in plugins) {
@@ -35,7 +37,7 @@ WebGameMaker.updateActivePluginInstanceProperty = function(property, value) {
 
 WebGameMaker.update = function() {
     draw_info = {
-        'canvas_context': document.getElementById('canvas').getContext('2d'),
+        'canvas_context': WebGameMaker.Settings.context,
     }
 
     draw_info['canvas_context'].clearRect(0, 0, WebGameMaker.Settings.width,
