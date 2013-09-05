@@ -1,12 +1,6 @@
 function UI() {
 
-    this.showSettingsBox = function(name) {
-        var plugin = WebGameMaker.PluginManager.getPluginByName(name);
-        if (plugin == undefined) {
-            return;
-        }
-
-        var pluginInstance = new plugin();
+    this.showSettingsBox = function(pluginInstance, updateDelegate) {
         var settings = pluginInstance.settings;
         var settingsBox = document.querySelector('#plugin_properties');
         settingsBox.innerHTML = "";
@@ -17,22 +11,22 @@ function UI() {
             inputElem.name = s;
             inputElem.type = settings[s].type;
             inputElem.value = settings[s].value;
+            inputElem.id = s;
+            inputElem.onchange = updateDelegate;
             settingsBox.appendChild(labelElem);
             settingsBox.appendChild(inputElem);
             settingsBox.appendChild(document.createElement('br'));
         }
     }
 
-    this.addPluginButton = function(plugin) {
+    this.addPluginButton = function(plugin, delegate) {
         var pluginsList = document.querySelector('#plugin_list');
         var button = document.createElement('input');
         button.type = 'button';
         button.title = plugin.prototype.description;
         button.value = plugin.prototype.name;
         button.name = plugin.prototype.name;
-        button.onclick = function(evt) {
-            WebGameMaker.UI.showSettingsBox(evt.currentTarget.name);
-        }
+        button.onclick = delegate;
         pluginsList.appendChild(button);
     }
 
