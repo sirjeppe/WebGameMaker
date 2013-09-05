@@ -6,9 +6,21 @@ function SpritePlugin() {
             'type': 'number',
         },
         'y': {
-            'value': 25,
+            'value': 0,
             'type': 'number',
-        }
+        },
+        'width': {
+            'value': 100,
+            'type': 'number',
+        },
+        'height': {
+            'value': 100,
+            'type': 'number',
+        },
+        'fill_style': {
+            'value': 'blue',
+            'type': 'text',
+        },
     };
 
 }
