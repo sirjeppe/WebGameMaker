@@ -4,6 +4,8 @@ function UI() {
         var settings = pluginInstance.settings;
         var settingsBox = document.querySelector('#plugin_properties');
         settingsBox.innerHTML = "";
+        // TODO(robert): We should probably create these elements in a table
+        // so that they'll be nicely aligned in the UI.
         for (s in settings) {
             var labelElem = document.createElement('label');
             labelElem.textContent = s + ': ';
