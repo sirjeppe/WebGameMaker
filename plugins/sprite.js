@@ -23,6 +23,14 @@ function SpritePlugin() {
         },
     };
 
+    this.redraw = function(info) {
+        info.canvas_context.fillStyle = this.settings.fill_style.value;
+        info.canvas_context.fillRect(
+                this.settings.x.value,
+                this.settings.y.value,
+                this.settings.width.value,
+                this.settings.height.value);
+    }
 }
 
 SpritePlugin.prototype.name = 'Sprite';
