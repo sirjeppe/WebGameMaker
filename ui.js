@@ -27,6 +27,11 @@ function UI() {
         settingsBox.appendChild(submitButton);
     }
 
+    this.clearSettingsBox = function() {
+        var settingsBox = document.querySelector('#plugin_properties');
+        settingsBox.innerHTML = "";
+    }
+
     this.addPluginButton = function(plugin, delegate) {
         var pluginsList = document.querySelector('#plugin_list');
         var button = document.createElement('input');

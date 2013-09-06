@@ -35,7 +35,14 @@ WebGameMaker.setActivePluginInstance = function(instance) {
                 evt.srcElement.value);
     });
 
-    var pluginInstanceAdded = bind(this, function() {
+    var submitSettings = bind(this, function() {
+        if (WebGameMaker.Game.getPluginById(instance.settings.id.value)) {
+            alert("Object with that id already exists");
+            return false;
+        }
+
+        WebGameMaker.UI.clearSettingsBox();
+
         WebGameMaker.Game.addPluginInstance(instance);
         var activePlugins = WebGameMaker.Game.getPluginInstances();
 
@@ -52,13 +59,19 @@ WebGameMaker.setActivePluginInstance = function(instance) {
     });
 
     WebGameMaker.UI.showSettingsBox(instance, propertyUpdated,
-            pluginInstanceAdded);
+            submitSettings);
 }
 
 WebGameMaker.updateActivePluginInstanceProperty = function(instance, property, type,
         value) {
-    // TODO(robertn): If the property that is being changed is the id, we should
-    // first check if there are any other instance with the same id.
+    if (property == 'id') {
+        var existingInstance = WebGameMaker.Game.getPluginById(value);
+        if (existingInstance) {
+            alert("Object with that id already exists");
+            return false;
+        }
+    }
+
     if (type == 'number') {
         instance.settings[property].value = Number(value);
     } else {
@@ -75,6 +88,8 @@ WebGameMaker.updateActivePluginInstanceProperty = function(instance, property, t
                         )
                 });
     }
+
+    return true;
 }
 
 WebGameMaker.update = function() {
