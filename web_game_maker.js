@@ -11,6 +11,7 @@ WebGameMaker.init = function() {
     for (p in plugins) {
         WebGameMaker.UI.addPluginButton(plugins[p], function(evt) {
             var instance = new plugins[p]();
+            WebGameMaker.Game.storeActivePluginInstance();
             WebGameMaker.UI.showSettingsBox(instance, function(evt) {
                 WebGameMaker.updateActivePluginInstanceProperty(
                     evt.srcElement.id,

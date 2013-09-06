@@ -23,4 +23,10 @@ function Game() {
     this.getActivePluginInstance = function() {
         return active_instance;
     }
+
+    this.storeActivePluginInstance = function() {
+        if (active_instance)
+            this.addPluginInstance(active_instance);
+    }
+
 }
