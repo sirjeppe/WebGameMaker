@@ -6,11 +6,31 @@ function SpritePlugin() {
             'type': 'number',
         },
         'y': {
-            'value': 25,
+            'value': 0,
             'type': 'number',
-        }
+        },
+        'width': {
+            'value': 100,
+            'type': 'number',
+        },
+        'height': {
+            'value': 100,
+            'type': 'number',
+        },
+        'fill_style': {
+            'value': 'blue',
+            'type': 'text',
+        },
     };
 
+    this.redraw = function(info) {
+        info.canvas_context.fillStyle = this.settings.fill_style.value;
+        info.canvas_context.fillRect(
+                this.settings.x.value,
+                this.settings.y.value,
+                this.settings.width.value,
+                this.settings.height.value);
+    }
 }
 
 SpritePlugin.prototype.name = 'Sprite';

@@ -2,13 +2,20 @@
     <head>
         <title>WebGameMaker</title>
         <script src="web_game_maker.js"></script>
+        <script src="game.js"></script>
         <script src="ui.js"></script>
         <script src="plugins_import.js"></script>
         <script src="plugins/sprite.js"></script>
+        <link href="style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div id="plugin_list">
+        <div id="left_bar">
+            <div id="plugin_list">
+            </div>
+            <div id="plugin_properties">
+                <i class="info">No plugin selected.</i>
+            </div>
         </div>
-        <div id="plugin_properties"></div>
+        <canvas id="canvas" width=""></canvas>
     </body>
 </html>
