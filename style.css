@@ -1,0 +1,32 @@
+body {
+    font-size: 0.8em;
+    font-family: "Trebuchet MS";
+}
+
+#left_bar {
+    float: left;
+    margin-right: 10px;
+}
+
+#plugin_list {
+    margin: 2px;
+    padding: 2px;
+    width: 250px;
+    border: 1px solid #000;
+}
+
+#plugin_properties {
+    padding: 2px;
+    width: 250px;
+    margin: 2px;
+    border: 1px solid #000;
+}
+
+.info {
+    color: #999;
+    font-size: 0.8em;
+}
+#canvas {
+    margin: 2px;
+    border: 1px solid #000;
+}
