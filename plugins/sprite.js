@@ -19,7 +19,7 @@ function SpritePlugin() {
         },
         'fill_style': {
             'value': 'blue',
-            'type': 'text',
+            'type': 'color',
         },
     };
 
