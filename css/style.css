@@ -93,8 +93,11 @@ select {
 }
 
 #canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
     margin: 2px;
-    border: 1px solid #000;
+    border: 1px solid #444;
 }
 
 #active_plugins_box {

@@ -17,11 +17,22 @@ WebGameMaker.requiredResources = [
 
 WebGameMaker.init = function() {
     WebGameMaker.Settings = {}
-    WebGameMaker.Settings.canvas = document.getElementById('canvas');
-    WebGameMaker.Settings.context = WebGameMaker.Settings.canvas.getContext('2d');
-    WebGameMaker.Settings.width = WebGameMaker.Settings.canvas.width;
-    WebGameMaker.Settings.height = WebGameMaker.Settings.canvas.height;
-
+    try {
+        var canvas = document.getElementById('canvas');
+    } catch (err) {
+        alert(err);
+        return false;
+    }
+    WebGameMaker.Settings.canvas = {
+        'element': canvas,
+        'context': canvas.getContext('2d'),
+        'width': canvas.width,
+        'height': canvas.height,
+        'top': parseInt(window.innerHeight / 2) - parseInt(canvas.height / 2),
+        'left': parseInt(window.innerWidth / 2) - parseInt(canvas.width / 2),
+    };
+    WebGameMaker.Settings.canvas.element.style.top = WebGameMaker.Settings.canvas.top + 'px';
+    WebGameMaker.Settings.canvas.element.style.left = WebGameMaker.Settings.canvas.left + 'px';
     WebGameMaker.PluginManager.findAndInjectPlugins(
         WebGameMaker.setup.pluginsFolder,
         function() {
@@ -107,11 +118,11 @@ WebGameMaker.updateActivePluginInstanceProperty = function(instance, property, t
 
 WebGameMaker.update = function() {
     draw_info = {
-        'canvas_context': WebGameMaker.Settings.context,
+        'canvas_context': WebGameMaker.Settings.canvas.context,
     }
 
-    draw_info['canvas_context'].clearRect(0, 0, WebGameMaker.Settings.width,
-            WebGameMaker.Settings.height);
+    draw_info['canvas_context'].clearRect(0, 0, WebGameMaker.Settings.canvas.width,
+            WebGameMaker.Settings.canvas.height);
 
     WebGameMaker.Game.redraw(draw_info);
     window.requestAnimationFrame(WebGameMaker.update);
