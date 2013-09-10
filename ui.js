@@ -1,6 +1,7 @@
 function UI() {
 
-    this.showSettingsBox = function(pluginInstance, updateDelegate) {
+    this.showSettingsBox = function(pluginInstance, updateDelegate,
+            submitDelegate) {
         var settings = pluginInstance.settings;
         var settingsBox = document.querySelector('#plugin_properties');
         settingsBox.innerHTML = "";
@@ -19,6 +20,16 @@ function UI() {
             settingsBox.appendChild(inputElem);
             settingsBox.appendChild(document.createElement('br'));
         }
+        var submitButton = document.createElement('input');
+        submitButton.type = 'button';
+        submitButton.value = "Add to game";
+        submitButton.onclick = submitDelegate;
+        settingsBox.appendChild(submitButton);
+    }
+
+    this.clearSettingsBox = function() {
+        var settingsBox = document.querySelector('#plugin_properties');
+        settingsBox.innerHTML = "";
     }
 
     this.addPluginButton = function(plugin, delegate) {
@@ -32,6 +43,19 @@ function UI() {
         pluginsList.appendChild(button);
     }
 
+    this.clearActivePlugins = function() {
+        var activePluginsList = document.querySelector('#active_plugins');
+        activePluginsList.innerHTML = '';
+    }
+
+    this.addActivePlugin = function(id, callback) {
+        var activePluginsList = document.querySelector('#active_plugins');
+        var listElem = document.createElement('li');
+        listElem.innerHTML = id;
+        listElem.id = id;
+        listElem.onclick = callback;
+        activePluginsList.appendChild(listElem);
+    }
 }
 
 WebGameMaker.UI = new UI;
