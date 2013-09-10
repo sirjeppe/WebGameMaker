@@ -1,7 +1,28 @@
 function Game() {
 
     var plugins = [];
-    var active_instance = undefined;
+
+    this.play = function() {
+        for (p in plugins) {
+            plugins[p].play();
+        }
+    }
+
+    this.pause = function() {
+        for (p in plugins) {
+            plugins[p].pause();
+        }
+    }
+
+    this.reset = function() {
+        for (p in plugins) {
+            plugins[p].reset();
+        }
+    }
+
+    this.getPluginInstances = function() {
+        return plugins;
+    }
 
     this.addPluginInstance = function(instance) {
         plugins.push(instance);
@@ -9,24 +30,16 @@ function Game() {
 
     this.redraw = function(draw_info) {
         for (p in plugins) {
-            plugins[p].redraw(draw_info);
+            if (plugins[p].type == 'object')
+                plugins[p].redraw(draw_info);
         }
-
-        if (active_instance)
-            active_instance.redraw(draw_info);
     }
 
-    this.setActivePluginInstance = function(instance) {
-        active_instance = instance;
+    this.getPluginById = function(id) {
+        for (p in plugins) {
+            if (plugins[p].settings.id.value == id) {
+                return plugins[p];
+            }
+        }
     }
-
-    this.getActivePluginInstance = function() {
-        return active_instance;
-    }
-
-    this.storeActivePluginInstance = function() {
-        if (active_instance)
-            this.addPluginInstance(active_instance);
-    }
-
 }
