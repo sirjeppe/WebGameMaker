@@ -11,7 +11,7 @@ WebGameMaker.setup = {
 WebGameMaker.requiredResources = [
     WebGameMaker.setup.coreFolder + '/utils.js',
     WebGameMaker.setup.coreFolder + '/game.js',
-    WebGameMaker.setup.coreFolder + '/plugins_import.js',
+    WebGameMaker.setup.coreFolder + '/plugin_manager.js',
     WebGameMaker.setup.coreFolder + '/ui.js',
 ];
 
