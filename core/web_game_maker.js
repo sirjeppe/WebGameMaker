@@ -1,5 +1,20 @@
 var WebGameMaker = {};
 
+// Global settings (setup)
+WebGameMaker.setup = {
+    'coreFolder': 'core',
+    'pluginsFolder': 'plugins',
+}
+
+// List of required resources that needs to get inserted into the document for
+// WebGameMaker to work.
+WebGameMaker.requiredResources = [
+    WebGameMaker.setup.coreFolder + '/utils.js',
+    WebGameMaker.setup.coreFolder + '/game.js',
+    WebGameMaker.setup.coreFolder + '/plugins_import.js',
+    WebGameMaker.setup.coreFolder + '/ui.js',
+];
+
 WebGameMaker.init = function() {
     WebGameMaker.Settings = {}
     WebGameMaker.Settings.canvas = document.getElementById('canvas');
@@ -7,10 +22,15 @@ WebGameMaker.init = function() {
     WebGameMaker.Settings.width = WebGameMaker.Settings.canvas.width;
     WebGameMaker.Settings.height = WebGameMaker.Settings.canvas.height;
 
-    WebGameMaker.initPlugins();
+    WebGameMaker.PluginManager.findAndInjectPlugins(
+        WebGameMaker.setup.pluginsFolder,
+        function() {
+            WebGameMaker.initPlugins();
 
-    WebGameMaker.Game = new Game();
-    WebGameMaker.update();
+            WebGameMaker.Game = new Game();
+            WebGameMaker.update();
+        }
+    );
 }
 
 WebGameMaker.initPlugins = function() {
@@ -104,6 +124,29 @@ WebGameMaker.update = function() {
     window.requestAnimationFrame(WebGameMaker.update);
 }
 
+WebGameMaker.injectScripts = function(fileList, callback) {
+    // Insert all items in WebGameMaker.requiredResources into the documents.
+    // When all resources are loaded - call the callback function if given
+    WebGameMaker.injectScriptsProgress = {
+        'injected': 0,
+        'target': fileList.length,
+        'callback': callback,
+    };
+    for (i in fileList) {
+        var s = document.createElement('script');
+        s.src = fileList[i];
+        s.onload = function() {
+            var progress = WebGameMaker.injectScriptsProgress;
+            progress.injected++;
+            if (progress.injected == progress.target && progress.callback) {
+                WebGameMaker.injectScriptsProgress = {};
+                setTimeout(progress.callback, 1);
+            }
+        }
+        document.querySelector('head').appendChild(s);
+    }
+}
+
 window.addEventListener('load', function() {
-    WebGameMaker.init();
+    WebGameMaker.injectScripts(WebGameMaker.requiredResources, WebGameMaker.init);
 }, false);

@@ -28,6 +28,23 @@ function PluginManager() {
         }
         return undefined;
     }
+
+    this.findAndInjectPlugins = function(pluginsFolder, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.status = 200 && xhr.readyState == 4) {
+                // Make sure folder name is present
+                fileList = JSON.parse(xhr.responseText);
+                for (i in fileList) {
+                    fileList[i] = pluginsFolder + '/' + fileList[i];
+                }
+                WebGameMaker.injectScripts(fileList, callback);
+            }
+        };
+        xhr.open('GET', pluginsFolder + '/list_plugins.php', true);
+        xhr.send();
+    }
+
 }
 
 WebGameMaker.PluginManager = new PluginManager;
