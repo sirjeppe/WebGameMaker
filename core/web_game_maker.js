@@ -66,15 +66,9 @@ WebGameMaker.setActivePluginInstance = function(instance) {
         WebGameMaker.Game.addPluginInstance(instance);
         var activePlugins = WebGameMaker.Game.getPluginInstances();
 
-        var pluginClicked = function(evt) {
-            WebGameMaker.setActivePluginInstance(
-                    WebGameMaker.Game.getPluginById(evt.srcElement.id))
-        }
-
         WebGameMaker.UI.clearActivePlugins();
         for (p in activePlugins) {
-            WebGameMaker.UI.addActivePlugin(
-                    activePlugins[p].settings.id.value, pluginClicked);
+            WebGameMaker.UI.addActivePlugin(activePlugins[p].settings.id.value);
         }
     });
 
@@ -90,23 +84,22 @@ WebGameMaker.updateActivePluginInstanceProperty = function(instance, property, t
             alert("Object with that id already exists");
             return false;
         }
+        var activePlugins = WebGameMaker.Game.getPluginInstances();
+        WebGameMaker.UI.clearActivePlugins();
+        for (p in activePlugins) {
+            WebGameMaker.UI.addActivePlugin(
+                    activePlugins[p].settings.id.value, function(evt) {
+                        WebGameMaker.setActivePluginInstance(
+                            WebGameMaker.Game.getPluginById(evt.srcElement.id)
+                            )
+                    });
+        }
     }
 
     if (type == 'number') {
         instance.settings[property].value = Number(value);
     } else {
         instance.settings[property].value = value;
-    }
-
-    var activePlugins = WebGameMaker.Game.getPluginInstances();
-    WebGameMaker.UI.clearActivePlugins();
-    for (p in activePlugins) {
-        WebGameMaker.UI.addActivePlugin(
-                activePlugins[p].settings.id.value, function(evt) {
-                    WebGameMaker.setActivePluginInstance(
-                        WebGameMaker.Game.getPluginById(evt.srcElement.id)
-                        )
-                });
     }
 
     return true;
@@ -125,8 +118,6 @@ WebGameMaker.update = function() {
 }
 
 WebGameMaker.injectScripts = function(fileList, callback) {
-    // Insert all items in WebGameMaker.requiredResources into the documents.
-    // When all resources are loaded - call the callback function if given
     WebGameMaker.injectScriptsProgress = {
         'injected': 0,
         'target': fileList.length,
