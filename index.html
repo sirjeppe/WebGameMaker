@@ -14,13 +14,15 @@
             </div>
             <div id="plugin_list" class="box">
             </div>
-            <div id="plugin_properties">
-                <i class="info">No plugin selected.</i>
+        </div>
+        <div id="right_bar">
+            <div id="active_plugins_box" class="box">
+                <select id="active_plugins" onchange="WebGameMaker.setActivePluginInstance(WebGameMaker.Game.getPluginById(this.options[this.selectedIndex].value))">
+                    <option value="">No active plugins</option>
+                </select>
             </div>
-            <div class="box">
-                <h2>Active plugin instances:</h2>
-                <ul id="active_plugins">
-                </ul>
+            <div class="box" id="plugin_properties">
+                <i class="info">No plugin selected.</i>
             </div>
         </div>
         <canvas id="canvas" width="600px" height="440px"></canvas>
