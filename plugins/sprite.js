@@ -24,7 +24,7 @@ function SpritePlugin() {
             'type': 'number',
         },
         'fill_style': {
-            'value': 'blue',
+            'value': '#0000ff',
             'type': 'color',
         },
     };
