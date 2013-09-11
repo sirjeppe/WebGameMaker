@@ -37,11 +37,11 @@ ul, li {
 
 input[type="button"] {
     background: #666;
-    border-radius: 3px;
+    border-radius: 3px 4px;
     border: 1px outset #888;
     color: #fff;
     font-size: 0.9em;
-    padding: 2px;
+    padding: 2px 4px;
 }
 
 input[type="button"]:active {
@@ -54,12 +54,12 @@ input[type="text"], input[type="number"], input[type="color"] {
     border: 1px inset #888;
     color: #000;
     font-size: 0.8em;
-    padding: 2px;
+    padding: 2px 3px;
 }
 
 select {
     background: #666;
-    border-radius: 3px;
+    border-radius: 3px 4px;
     border: 1px outset #888;
     color: #fff;
     font-size: 0.9em;

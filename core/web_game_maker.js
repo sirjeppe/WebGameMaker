@@ -28,11 +28,10 @@ WebGameMaker.init = function() {
         'context': canvas.getContext('2d'),
         'width': canvas.width,
         'height': canvas.height,
-        'top': parseInt(window.innerHeight / 2) - parseInt(canvas.height / 2),
-        'left': parseInt(window.innerWidth / 2) - parseInt(canvas.width / 2),
+        'top': 0,
+        'left': 0,
     };
-    WebGameMaker.Settings.canvas.element.style.top = WebGameMaker.Settings.canvas.top + 'px';
-    WebGameMaker.Settings.canvas.element.style.left = WebGameMaker.Settings.canvas.left + 'px';
+    WebGameMaker.UI.positionCanvas();
     WebGameMaker.PluginManager.findAndInjectPlugins(
         WebGameMaker.setup.pluginsFolder,
         function() {

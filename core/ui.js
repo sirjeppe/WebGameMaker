@@ -75,6 +75,16 @@ function UI() {
         activePluginsList.options.add(option);
     }
 
+    this.positionCanvas = function() {
+        var canvas = WebGameMaker.Settings.canvas;
+        canvas.left = parseInt(window.innerWidth / 2) - parseInt(canvas.width / 2);
+        canvas.top = parseInt(window.innerHeight / 2) - parseInt(canvas.height / 2);
+        WebGameMaker.Settings.canvas.element.style.top = canvas.top + 'px';
+        WebGameMaker.Settings.canvas.element.style.left = canvas.left + 'px';
+    }
+
 }
 
 WebGameMaker.UI = new UI;
+
+window.addEventListener('resize', WebGameMaker.UI.positionCanvas, false);
