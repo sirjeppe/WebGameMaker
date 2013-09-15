@@ -1,9 +1,11 @@
 function Game() {
 
     var plugins = [];
+    var collisionManager = new CollisionManager;
 
     this.play = function() {
         for (p in plugins) {
+            plugins[p].initialize();
             plugins[p].play();
         }
     }
@@ -25,13 +27,18 @@ function Game() {
     }
 
     this.addPluginInstance = function(instance) {
+        if (instance.type == 'object')
+            collisionManager.addObject(instance);
+
         plugins.push(instance);
     }
 
     this.redraw = function(draw_info) {
         for (p in plugins) {
-            if (plugins[p].type == 'object')
+            if (plugins[p].type == 'object') {
+                collisionManager.findCollisions(plugins[p]);
                 plugins[p].redraw(draw_info);
+            }
         }
     }
 
