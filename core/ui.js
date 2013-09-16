@@ -20,10 +20,26 @@ function UI() {
             tdProp.appendChild(labelElem);
 
             var tdVal = document.createElement('td');
-            var inputElem = document.createElement('input');
+            if (settings[s].type == 'enum') {
+                var inputElem = document.createElement('select');
+                for (var i = 0; i < settings[s].values.length; i++) {
+                    var o = document.createElement('option');
+                    o.value = settings[s].values[i];
+                    o.textContent = settings[s].values[i];
+                    if (o.value == settings[s].value) {
+                        o.selected = 'selected';
+                    }
+                    inputElem.options.add(o);
+                }
+            } else {
+                var inputElem = document.createElement('input');
+                inputElem.type = settings[s].type;
+                inputElem.value = settings[s].value;
+                if (settings[s].type == 'button') {
+                    inputElem.onclick = settings[s].onclick;
+                }
+            }
             inputElem.name = s;
-            inputElem.type = settings[s].type;
-            inputElem.value = settings[s].value;
             inputElem.id = s;
             inputElem.onchange = updateDelegate;
             tdVal.appendChild(inputElem);
