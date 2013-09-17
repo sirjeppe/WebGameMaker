@@ -39,6 +39,11 @@ function UI() {
                     inputElem.onclick = settings[s].onclick;
                 }
             }
+            if (settings[s].extraAttributes) {
+                for (a in settings[s].extraAttributes) {
+                    inputElem[a] = settings[s].extraAttributes[a];
+                }
+            }
             inputElem.name = s;
             inputElem.id = s;
             inputElem.onchange = updateDelegate;
