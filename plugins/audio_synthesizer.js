@@ -3,7 +3,7 @@ function AudioSynthesizerPlugin() {
     this.type = 'controller';
 
     this.play = function() {
-        var pattern = /(1|2|4|8|16|32|64|128)((-)|([a-g]#?[0-8]))/ig;
+        var pattern = /(1|2|4|8|16|32|64|128)((-)|((c|c#|d|d#|e|f|f#|g|g#|a|a#|b)[0-9]))/g;
         var re = new RegExp(pattern);
         var toneArray = []
         var match;
@@ -25,7 +25,7 @@ function AudioSynthesizerPlugin() {
             re.lastIndex = 0;
             var tone = re.exec(toneArray[i]);
             var length = parseFloat(60 / this.settings.bpm.value / tone[1]) * 4;
-            var key = tone[2].match(/[a-g\-]#?/i)[0].toLowerCase();
+            var key = tone[2].match(/[a-g\-]\#?/);
             var octave = tone[2].match(/[0-9]+/);
 
             var oscillator = this.audioContext.createOscillator();
