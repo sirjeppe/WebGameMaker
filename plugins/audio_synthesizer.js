@@ -3,7 +3,7 @@ function AudioSynthesizerPlugin() {
     this.type = 'controller';
 
     this.play = function() {
-        var pattern = /(1|2|4|8|16|32|64|128)((-)|((c|c#|d|d#|e|f|f#|g|g#|a|a#|b)[0-9]))/g;
+        var pattern = /(1|2|4|8|16|32|64|128)(-|((c|c#|d|d#|e|f|f#|g|g#|a|a#|b)[0-9]))/g;
         var re = new RegExp(pattern);
         var toneArray = []
         var match;
