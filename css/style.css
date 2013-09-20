@@ -21,11 +21,14 @@ ul, li {
 
 #left_bar {
     float: left;
-    margin-right: 10px;
+    margin-left: 20px;
+    margin-top: 20px;
 }
 
 #right_bar {
     float: right;
+    margin-right: 20px;
+    margin-top: 20px;
 }
 
 .box {
