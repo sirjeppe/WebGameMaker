@@ -29,9 +29,15 @@ function SpritePlugin() {
         },
     };
 
+    var collisionHandlers = [];
+
     var positionDiff = {
         'x': 0,
         'y': 0,
+    }
+
+    this.initialize = function() {
+        collisionHandlers = [];
     }
 
     this.play = function() {
@@ -50,6 +56,15 @@ function SpritePlugin() {
         positionDiff.y += y;
     }
 
+    this.getLocation = function() {
+        return {
+            'x': this.settings.x.value + positionDiff.x,
+            'y': this.settings.y.value + positionDiff.y,
+            'width': this.settings.width.value,
+            'height': this.settings.height.value
+        }
+    }
+
     this.redraw = function(info) {
         info.canvas_context.fillStyle = this.settings.fill_style.value;
         info.canvas_context.fillRect(
@@ -57,6 +72,16 @@ function SpritePlugin() {
                 this.settings.y.value + positionDiff.y,
                 this.settings.width.value,
                 this.settings.height.value);
+    }
+
+    this.addCollisionHandler = function(callback) {
+        collisionHandlers.push(callback);
+    }
+
+    this.onCollision = function(info) {
+        for (ch in collisionHandlers) {
+            collisionHandlers[ch](this);
+        }
     }
 }
 

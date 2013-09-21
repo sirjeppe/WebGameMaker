@@ -22,6 +22,9 @@ function KeyboardControllerPlugin () {
         },
     };
 
+    this.initialize = function() {
+    }
+
     this.play = function() {
         this.state = 'playing';
         this.setEventListeners();
