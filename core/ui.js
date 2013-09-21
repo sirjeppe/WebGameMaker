@@ -15,7 +15,7 @@ function UI() {
 
             var tdProp = document.createElement('td');
             var labelElem = document.createElement('label');
-            labelElem.textContent = s + ': ';
+            labelElem.textContent = ((settings[s].name) ? settings[s].name : s) + ': ';
             labelElem.for = s;
             tdProp.appendChild(labelElem);
 
