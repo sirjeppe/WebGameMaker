@@ -77,7 +77,29 @@ function UI() {
         button.onclick = delegate;
         pluginsList.appendChild(button);
         pluginsList.appendChild(document.createElement('br'));
+        this.sortPluginButtons();
     }
+
+    this.sortPluginButtons = function() {
+        var pluginsList = document.querySelector('#plugin_list');
+        var buttonsNodeList = document.querySelectorAll('#plugin_list input');
+        var buttonsArray = [];
+        for (b in buttonsNodeList) {
+            if (buttonsNodeList[b].nodeType == 1 && buttonsNodeList[b].name) {
+                buttonsArray.push(buttonsNodeList[b]);
+            }
+        }
+        buttonsArray.sort(this.sortByPluginName);
+        document.querySelector('#plugin_list').innerHTML = '';
+        for (b in buttonsArray) {
+            pluginsList.appendChild(buttonsArray[b]);
+            pluginsList.appendChild(document.createElement('br'));
+        }
+    };
+
+    this.sortByPluginName = function(a, b) {
+        return (a.name < b.name) ? -1 : 1;
+    };
 
     this.clearActivePlugins = function() {
         var activePluginsList = document.querySelector('#active_plugins');
