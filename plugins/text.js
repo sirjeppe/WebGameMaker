@@ -54,7 +54,7 @@ function Text() {
         },
     };
 
-    this.redraw = function(info) {
+    this.draw = function(info) {
         info.canvas_context.fillStyle = this.settings.fillStyle.value;
         info.canvas_context.font = this.settings.fontSize.value + 'px ' +
                                    this.settings.font.value;

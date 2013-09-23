@@ -128,7 +128,7 @@ WebGameMaker.update = function() {
     draw_info['canvas_context'].clearRect(0, 0, WebGameMaker.Settings.canvas.width,
             WebGameMaker.Settings.canvas.height);
 
-    WebGameMaker.Game.redraw(draw_info);
+    WebGameMaker.Game.draw(draw_info);
     window.requestAnimationFrame(WebGameMaker.update);
 }
 

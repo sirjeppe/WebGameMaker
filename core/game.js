@@ -35,11 +35,11 @@ function Game() {
         plugins.push(instance);
     }
 
-    this.redraw = function(draw_info) {
+    this.draw = function(draw_info) {
         for (var p in plugins) {
             if (plugins[p].type == 'object') {
                 collisionManager.findCollisions(plugins[p]);
-                plugins[p].redraw(draw_info);
+                plugins[p].draw(draw_info);
             }
         }
     }
