@@ -20,14 +20,15 @@ function CollisionManager() {
     this.findCollisions = function(object) {
         var collidedWith = [];
         for (var i = 0; i < objects.length; i++) {
-            if (objects.id != objects[i].id &&
+            if (object.settings.id.value != objects[i].settings.id.value &&
                     this.intersect(object, objects[i]))
-                collidedWith.push(objects[i].id);
+                collidedWith.push(objects[i].settings.id.value);
         }
 
         if (collidedWith.length > 0) {
+            console.log('Found collision');
             object.onCollision({
-                'collided_with': collidedWith
+                'collidedWith': collidedWith
             });
         }
     }
