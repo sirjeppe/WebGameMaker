@@ -87,7 +87,7 @@ function SpritePlugin() {
     }
 
     this.onCollision = function(info) {
-        for (ch in collisionHandlers) {
+        for (var ch in collisionHandlers) {
             collisionHandlers[ch](this);
         }
     }
