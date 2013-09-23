@@ -54,16 +54,19 @@ function AudioSynthesizerPlugin() {
     this.settings = {
         'id': {
             'name': 'ID',
+            'initial_value': 'synthesizer1',
             'value': 'synthesizer1',
             'type': 'text',
         },
         'object_id': {
             'name': 'Object ID',
+            'initial_value': '',
             'value': '',
             'type': 'text'
         },
         'wave_form': {
             'name': 'Wave form',
+            'initial_value': 'square',
             'value': 'square',
             'type': 'enum',
             'values': [
@@ -75,11 +78,13 @@ function AudioSynthesizerPlugin() {
         },
         'bpm': {
             'name': 'BPM',
+            'initial_value': 120,
             'value': 120,
             'type': 'number'
         },
         'gain': {
             'name': 'Gain',
+            'initial_value': 10,
             'value': 10,
             'type': 'range',
             'extraAttributes': {
@@ -89,11 +94,13 @@ function AudioSynthesizerPlugin() {
         },
         'melody': {
             'name': 'Melody',
+            'initial_value': '16c4 16e4 16g4 16c5 16- 16g4 4c5',
             'value': '16c4 16e4 16g4 16c5 16- 16g4 4c5',
             'type': 'text'
         },
         'play': {
             'name': 'Play',
+            'initial_value': 'Play/Stop',
             'value': 'Play/Stop',
             'type': 'button',
             'onclick': bind(this, this.play)

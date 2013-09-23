@@ -7,18 +7,22 @@ function KeyboardControllerPlugin () {
 
     this.settings = {
         'id': {
+            'initial_value': 'keyboard_controller',
             'value': 'keyboard_controller',
             'type': 'text',
         },
         'object_id': {
+            'initial_value': '',
             'value': '',
             'type': 'text'
         },
         'speed_x': {
+            'initial_value': 1,
             'value': 1,
             'type': 'number',
         },
         'speed_y': {
+            'initial_value': 1,
             'value': 1,
             'type': 'number',
         },
@@ -54,7 +58,7 @@ function KeyboardControllerPlugin () {
             if (ev.which == 38) {
                 object.move(0, -this.settings.speed_y.value);
             } else if (ev.which == 40) {
-                object.move(0, this.settings.speed_y.value);    
+                object.move(0, this.settings.speed_y.value);
             } else if (ev.which == 37) {
                 object.move(-this.settings.speed_x.value, 0);
             } else if (ev.which == 39) {

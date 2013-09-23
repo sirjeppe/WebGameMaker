@@ -6,26 +6,32 @@ function SpritePlugin() {
 
     this.settings = {
         'id': {
+            'initial_value': 'sprite',
             'value': 'sprite',
             'type': 'text',
         },
         'x': {
+            'initial_value': 0,
             'value': 0,
             'type': 'number',
         },
         'y': {
+            'initial_value': 0,
             'value': 0,
             'type': 'number',
         },
         'width': {
+            'initial_value': 100,
             'value': 100,
             'type': 'number',
         },
         'height': {
+            'initial_value': 100,
             'value': 100,
             'type': 'number',
         },
         'fill_style': {
+            'initial_value': '#0000ff',
             'value': '#0000ff',
             'type': 'color',
         },

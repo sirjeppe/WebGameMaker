@@ -7,22 +7,27 @@ function SimpleControllerPlugin () {
 
     this.settings = {
         'id': {
+            'initial_value': 'simple_controller',
             'value': 'simple_controller',
             'type': 'text',
         },
         'object_id': {
+            'initial_value': '',
             'value': '',
             'type': 'text'
         },
         'speed_x': {
+            'initial_value': 1,
             'value': 1,
             'type': 'number',
         },
         'speed_y': {
+            'initial_value': 1,
             'value': 1,
             'type': 'number',
         },
         'time_interval': {
+            'initial_value': 1000,
             'value': 1000,
             'type': 'number',
         }
@@ -32,14 +37,9 @@ function SimpleControllerPlugin () {
         var object = WebGameMaker.Game.getPluginById(
                 this.settings.object_id.value);
         object.addCollisionHandler(bind(this, function(obj) {
-            console.log('simple_controller: Collision handler');
             this.settings.speed_x.value = -this.settings.speed_x.value;
             this.settings.speed_y.value = -this.settings.speed_y.value;
 
-            // TODO: The collision need to be handled properly by somehow
-            // "resolving" the collision. Otherwise we'll just keep toggling
-            // between different directions. This seems especially tricky if
-            // there would be collision between multiple objects.
             obj.move(this.settings.speed_x.value, this.settings.speed_y.value);
         }));
     }
