@@ -111,8 +111,10 @@ WebGameMaker.updateActivePluginInstanceProperty = function(instance, property, t
 
     if (type == 'number') {
         instance.settings[property].value = Number(value);
+        instance.settings[property].initial_value = Number(value);
     } else {
         instance.settings[property].value = value;
+        instance.settings[property].initial_value = value;
     }
 
     return true;
