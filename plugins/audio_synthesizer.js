@@ -115,6 +115,13 @@ function AudioSynthesizerPlugin() {
 
     this.renderedMelody = [];
 
+    this.initialize = function() {
+        var object = WebGameMaker.Game.getPluginById(this.settings.object_id.value);
+        object.addCollisionHandler(bind(this, function(objects) {
+            this.play();
+        }));
+    };
+
 }
 
 try {
