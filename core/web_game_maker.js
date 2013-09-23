@@ -46,6 +46,10 @@ WebGameMaker.init = function() {
     );
 }
 
+/**
+ * The initPlugins method is responsible for retrieving information about the
+ * currently installed plugins and letting the UI know about them.
+ */
 WebGameMaker.initPlugins = function() {
     var plugins = WebGameMaker.PluginManager.getPlugins();
     var pluginButtonClicked = function(evt) {
@@ -59,6 +63,15 @@ WebGameMaker.initPlugins = function() {
     }
 }
 
+/**
+ * The setActivePluginInstance method sets the given instance as the currently
+ * active object, which means that it will be possible to edit this instance
+ * in the settings box. It's also responsible for registering callbacks for
+ * storing the active instance in the game and updating properties after the
+ * object has already been added.
+ *
+ * @param instance Plugin instance that should be edited.
+ */
 WebGameMaker.setActivePluginInstance = function(instance) {
     var propertyUpdated = bind(this, function(evt) {
         WebGameMaker.updateActivePluginInstanceProperty(
@@ -89,26 +102,34 @@ WebGameMaker.setActivePluginInstance = function(instance) {
             submitSettings);
 }
 
+
+
 WebGameMaker.updateActivePluginInstanceProperty = function(instance, property, type,
         value) {
+    // In case the property that is being changed is the id, we first need
+    // to verify that there isn't already an object with the new id.
     if (property == 'id') {
         var existingInstance = WebGameMaker.Game.getPluginById(value);
         if (existingInstance) {
             alert("Object with that id already exists");
             return false;
         }
+
+        // TODO(robert): Is this really needed? I don't see the point of it
+        // anymore...
         var activePlugins = WebGameMaker.Game.getPluginInstances();
         WebGameMaker.UI.clearActivePlugins();
         for (var p in activePlugins) {
             WebGameMaker.UI.addActivePlugin(
                     activePlugins[p].settings.id.value, function(evt) {
                         WebGameMaker.setActivePluginInstance(
-                            WebGameMaker.Game.getPluginById(evt.srcElement.id)
-                            )
-                    });
+                            WebGameMaker.Game.getPluginById(evt.srcElement.id));
+                    }
+            );
         }
     }
 
+    // Store the new property in the object.
     if (type == 'number') {
         instance.settings[property].value = Number(value);
         instance.settings[property].initial_value = Number(value);
