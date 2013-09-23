@@ -1,3 +1,5 @@
+"use strict";
+
 function AudioSynthesizerPlugin() {
 
     this.type = 'controller';

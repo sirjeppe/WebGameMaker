@@ -1,3 +1,5 @@
+"use strict";
+
 function SimpleControllerPlugin () {
 
     this.type = 'controller';

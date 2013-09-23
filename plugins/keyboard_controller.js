@@ -1,3 +1,5 @@
+"use strict";
+
 function KeyboardControllerPlugin () {
 
     this.type = 'controller';

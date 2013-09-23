@@ -1,3 +1,5 @@
+"use strict";
+
 var WebGameMaker = {};
 
 // Global settings (setup)
@@ -52,7 +54,7 @@ WebGameMaker.initPlugins = function() {
         var instance = new plugin();
         WebGameMaker.setActivePluginInstance(instance);
     }
-    for (p in plugins) {
+    for (var p in plugins) {
         WebGameMaker.UI.addPluginButton(plugins[p], pluginButtonClicked);
     }
 }
@@ -78,7 +80,7 @@ WebGameMaker.setActivePluginInstance = function(instance) {
         var activePlugins = WebGameMaker.Game.getPluginInstances();
 
         WebGameMaker.UI.clearActivePlugins();
-        for (p in activePlugins) {
+        for (var p in activePlugins) {
             WebGameMaker.UI.addActivePlugin(activePlugins[p].settings.id.value);
         }
     });
@@ -97,7 +99,7 @@ WebGameMaker.updateActivePluginInstanceProperty = function(instance, property, t
         }
         var activePlugins = WebGameMaker.Game.getPluginInstances();
         WebGameMaker.UI.clearActivePlugins();
-        for (p in activePlugins) {
+        for (var p in activePlugins) {
             WebGameMaker.UI.addActivePlugin(
                     activePlugins[p].settings.id.value, function(evt) {
                         WebGameMaker.setActivePluginInstance(
@@ -117,7 +119,7 @@ WebGameMaker.updateActivePluginInstanceProperty = function(instance, property, t
 }
 
 WebGameMaker.update = function() {
-    draw_info = {
+    var draw_info = {
         'canvas_context': WebGameMaker.Settings.canvas.context,
     }
 
@@ -134,7 +136,7 @@ WebGameMaker.injectScripts = function(fileList, callback) {
         'target': fileList.length,
         'callback': callback,
     };
-    for (i in fileList) {
+    for (var i in fileList) {
         var s = document.createElement('script');
         s.src = fileList[i];
         s.onload = function() {

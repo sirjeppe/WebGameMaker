@@ -1,3 +1,5 @@
+"use strict";
+
 function CollisionManager() {
 
     var objects = [];

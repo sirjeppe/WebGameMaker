@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * PluginManager's purpose is to keep track of all the available plugins and
  * should offer a suitable interface for querying for plugins, such as searching
@@ -21,7 +23,7 @@ function PluginManager() {
     }
 
     this.getPluginByName = function(name) {
-        for (p in installedPlugins) {
+        for (var p in installedPlugins) {
             if (installedPlugins[p].prototype.name == name) {
                 return installedPlugins[p];
             }
@@ -34,8 +36,8 @@ function PluginManager() {
         xhr.onreadystatechange = function() {
             if (xhr.status = 200 && xhr.readyState == 4) {
                 // Make sure folder name is present
-                fileList = JSON.parse(xhr.responseText);
-                for (i in fileList) {
+                var fileList = JSON.parse(xhr.responseText);
+                for (var i in fileList) {
                     fileList[i] = pluginsFolder + '/' + fileList[i];
                 }
                 WebGameMaker.injectScripts(fileList, callback);

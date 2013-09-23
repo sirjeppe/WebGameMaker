@@ -1,3 +1,5 @@
+"use strict";
+
 function UI() {
 
     this.showSettingsBox = function(pluginInstance, updateDelegate,
@@ -10,7 +12,7 @@ function UI() {
         var settingsBox = document.querySelector('#plugin_properties');
         var settingsBoxTable = document.createElement('table');
         settingsBoxTable.id = 'plugin_properties_table';
-        for (s in settings) {
+        for (var s in settings) {
             var tr = document.createElement('tr');
 
             var tdProp = document.createElement('td');
@@ -40,7 +42,7 @@ function UI() {
                 }
             }
             if (settings[s].extraAttributes) {
-                for (a in settings[s].extraAttributes) {
+                for (var a in settings[s].extraAttributes) {
                     inputElem[a] = settings[s].extraAttributes[a];
                 }
             }
@@ -84,14 +86,14 @@ function UI() {
         var pluginsList = document.querySelector('#plugin_list');
         var buttonsNodeList = document.querySelectorAll('#plugin_list input');
         var buttonsArray = [];
-        for (b in buttonsNodeList) {
+        for (var b in buttonsNodeList) {
             if (buttonsNodeList[b].nodeType == 1 && buttonsNodeList[b].name) {
                 buttonsArray.push(buttonsNodeList[b]);
             }
         }
         buttonsArray.sort(this.sortByPluginName);
         document.querySelector('#plugin_list').innerHTML = '';
-        for (b in buttonsArray) {
+        for (var b in buttonsArray) {
             pluginsList.appendChild(buttonsArray[b]);
             pluginsList.appendChild(document.createElement('br'));
         }
