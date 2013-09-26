@@ -36,9 +36,16 @@ function SimpleControllerPlugin () {
     this.initialize = function() {
         var object = WebGameMaker.Game.getPluginById(
                 this.settings.object_id.value);
-        object.addCollisionHandler(bind(this, function(obj) {
-            this.settings.speed_x.value = -this.settings.speed_x.value;
-            this.settings.speed_y.value = -this.settings.speed_y.value;
+        object.addCollisionHandler(bind(this, function(obj, info) {
+            var topCollision = info.collidedWith[0].collisionData.topLeftCollision && info.collidedWith[0].collisionData.topRightCollision;
+            var rightCollision = info.collidedWith[0].collisionData.topRightCollision && info.collidedWith[0].collisionData.bottomRightCollision;
+            var bottomCollision = info.collidedWith[0].collisionData.bottomRightCollision && info.collidedWith[0].collisionData.bottomLeftCollision;
+            var leftCollision = info.collidedWith[0].collisionData.bottomLeftCollision && info.collidedWith[0].collisionData.topLeftCollision;
+            if (topCollision || bottomCollision) {
+                this.settings.speed_y.value = -this.settings.speed_y.value;
+            } else {
+                this.settings.speed_x.value = -this.settings.speed_x.value;
+            }
 
             obj.move(this.settings.speed_x.value, this.settings.speed_y.value);
         }));

@@ -30,6 +30,21 @@ function SpritePlugin() {
             'value': 100,
             'type': 'number',
         },
+        'speedX': {
+            'initial_value': 0,
+            'value': 0,
+            'type': 'float',
+        },
+        'speedY': {
+            'initial_value': 0,
+            'value': 0,
+            'type': 'float',
+        },
+        'weight': {
+            'initial_value': 1,
+            'value': 1,
+            'type': 'float',
+        },
         'fill_style': {
             'initial_value': '#0000ff',
             'value': '#0000ff',
@@ -45,7 +60,7 @@ function SpritePlugin() {
     }
 
     this.initialize = function() {
-        collisionHandlers = [];
+        //collisionHandlers = [];
     }
 
     this.play = function() {
@@ -88,7 +103,7 @@ function SpritePlugin() {
 
     this.onCollision = function(info) {
         for (var ch in collisionHandlers) {
-            collisionHandlers[ch](this);
+            collisionHandlers[ch](this, info);
         }
     }
 }
