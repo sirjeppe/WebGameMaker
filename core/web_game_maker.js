@@ -6,6 +6,8 @@ var WebGameMaker = {};
 WebGameMaker.setup = {
     'coreFolder': 'core',
     'pluginsFolder': 'plugins',
+    'useXMLHttpRequest': false,
+    'defaultPlugins': [],
 }
 
 // List of required resources that needs to get inserted into the document for
@@ -17,6 +19,13 @@ WebGameMaker.requiredResources = [
     WebGameMaker.setup.coreFolder + '/ui.js',
     WebGameMaker.setup.coreFolder + '/collision_manager.js',
 ];
+
+WebGameMaker.setup.defaultPlugins.push(WebGameMaker.setup.pluginsFolder + '/audio_synthesizer.js');
+WebGameMaker.setup.defaultPlugins.push(WebGameMaker.setup.pluginsFolder + '/keyboard_controller.js');
+WebGameMaker.setup.defaultPlugins.push(WebGameMaker.setup.pluginsFolder + '/keyboard_controller.js');
+WebGameMaker.setup.defaultPlugins.push(WebGameMaker.setup.pluginsFolder + '/simple_controller.js');
+WebGameMaker.setup.defaultPlugins.push(WebGameMaker.setup.pluginsFolder + '/sprite.js')
+WebGameMaker.setup.defaultPlugins.push(WebGameMaker.setup.pluginsFolder + '/text.js')
 
 WebGameMaker.init = function() {
     WebGameMaker.Settings = {}
@@ -34,16 +43,26 @@ WebGameMaker.init = function() {
         'top': 0,
         'left': 0,
     };
+
     WebGameMaker.UI.positionCanvas();
-    WebGameMaker.PluginManager.findAndInjectPlugins(
-        WebGameMaker.setup.pluginsFolder,
-        function() {
+
+    if (WebGameMaker.setup.useXMLHttpRequest) {
+      WebGameMaker.PluginManager.findAndInjectPlugins(
+          WebGameMaker.setup.pluginsFolder,
+          function() {
             WebGameMaker.initPlugins();
 
             WebGameMaker.Game = new Game();
             WebGameMaker.update();
-        }
-    );
+          }
+      );
+    } else {
+      WebGameMaker.injectScripts(WebGameMaker.setup.defaultPlugins, function() {
+        WebGameMaker.initPlugins();
+        WebGameMaker.Game = new Game();
+        WebGameMaker.update();
+      });
+    }
 }
 
 /**
