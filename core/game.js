@@ -3,7 +3,7 @@
 function Game() {
 
     var plugins = [];
-    var collisionManager = new CollisionManager;
+    var collisionDetector = new CollisionDetector;
 
     this.play = function() {
         for (var p in plugins) {
@@ -30,7 +30,7 @@ function Game() {
 
     this.addPluginInstance = function(instance) {
         if (instance.type == 'object')
-            collisionManager.addObject(instance);
+            collisionDetector.addObject(instance);
 
         plugins.push(instance);
     }
@@ -38,7 +38,7 @@ function Game() {
     this.draw = function(draw_info) {
         for (var p in plugins) {
             if (plugins[p].type == 'object') {
-                collisionManager.findCollisions(plugins[p]);
+                collisionDetector.findCollisions(plugins[p]);
                 plugins[p].draw(draw_info);
             }
         }
