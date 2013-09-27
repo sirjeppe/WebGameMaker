@@ -17,12 +17,22 @@
         </div>
         <div id="right_bar">
             <div id="active_plugins_box" class="box">
-                <select id="active_plugins" onchange="WebGameMaker.setActivePluginInstance(WebGameMaker.Game.getPluginById(this.options[this.selectedIndex].value))">
+                <select id="active_plugins"
+                    onchange="WebGameMaker.setActivePluginInstance(
+                      WebGameMaker.Game.getPluginById(this.options[this.selectedIndex].value))">
                     <option value="">No active plugins</option>
                 </select>
             </div>
             <div class="box" id="plugin_properties">
                 <i class="info">No plugin selected.</i>
+            </div>
+            <br>
+            <div id="stored_games_box" class="box">
+                <select id="stored_games"
+                    onchange="WebGameMaker.loadGame(
+                      WebGameMaker.Games.getGameByName(this.options[this.selectedIndex].value))">
+                    <option value="">Select game</option>
+                </select>
             </div>
         </div>
         <canvas id="canvas" width="600px" height="440px"></canvas>

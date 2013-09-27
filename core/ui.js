@@ -128,6 +128,12 @@ function UI() {
         WebGameMaker.Settings.canvas.element.style.left = canvas.left + 'px';
     }
 
+    this.addStoredGame = function(name) {
+        var storedGamesSelect = document.getElementById('stored_games');
+        var newOption = document.createElement('option');
+        newOption.text = name;
+        storedGamesSelect.appendChild(newOption);
+    }
 }
 
 WebGameMaker.UI = new UI;
