@@ -48,7 +48,7 @@ function Text() {
         },
         'zIndex': {
             'name': 'Z index',
-            'initial_value': 1,
+            'initialValue': 1,
             'value': 1,
             'type': 'number',
         },
