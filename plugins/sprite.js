@@ -30,20 +30,34 @@ function SpritePlugin() {
             'value': 100,
             'type': 'number',
         },
+        'zIndex': {
+            'initial_value': 1,
+            'value': 1,
+            'type': 'number',
+        },
         'speedX': {
             'initial_value': 0,
             'value': 0,
-            'type': 'float',
+            'type': 'number',
+            'extraAttributes': {
+                'step': 'any'
+            },
         },
         'speedY': {
             'initial_value': 0,
             'value': 0,
-            'type': 'float',
+            'type': 'number',
+            'extraAttributes': {
+                'step': 'any'
+            },
         },
         'weight': {
             'initial_value': 1,
             'value': 1,
-            'type': 'float',
+            'type': 'number',
+            'extraAttributes': {
+                'step': 'any'
+            },
         },
         'fill_style': {
             'initial_value': '#0000ff',
