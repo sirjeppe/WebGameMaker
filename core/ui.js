@@ -28,7 +28,7 @@ function UI() {
                     var o = document.createElement('option');
                     o.value = settings[s].values[i];
                     o.textContent = settings[s].values[i];
-                    if (o.value == settings[s].initial_value) {
+                    if (o.value == settings[s].initialValue) {
                         o.selected = 'selected';
                     }
                     inputElem.options.add(o);
@@ -36,7 +36,7 @@ function UI() {
             } else {
                 var inputElem = document.createElement('input');
                 inputElem.type = settings[s].type;
-                inputElem.value = settings[s].initial_value;
+                inputElem.value = settings[s].initialValue;
                 if (settings[s].type == 'button') {
                     inputElem.onclick = settings[s].onclick;
                 }

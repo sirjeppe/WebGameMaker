@@ -7,13 +7,13 @@ function Text() {
     this.settings = {
         'id': {
             'name': 'Object ID',
-            'initial_value': 'text1',
+            'initialValue': 'text1',
             'value': 'text1',
             'type': 'text',
         },
         'font': {
             'name': 'Font',
-            'initial_value': 'sans-serif',
+            'initialValue': 'sans-serif',
             'value': 'sans-serif',
             'type': 'text',
             'values': [
@@ -24,31 +24,37 @@ function Text() {
         },
         'fontSize': {
             'name': 'Font size (px)',
-            'initial_value': 30,
+            'initialValue': 30,
             'value': 30,
             'type': 'number',
         },
         'text': {
             'name': 'Text',
-            'initial_value': 'Hello World!',
+            'initialValue': 'Hello World!',
             'value': 'Hello World!',
             'type': 'text',
         },
         'x': {
             'name': 'X',
-            'initial_value': 45,
+            'initialValue': 45,
             'value': 45,
             'type': 'number',
         },
         'y': {
             'name': 'Y',
-            'initial_value': 60,
+            'initialValue': 60,
             'value': 60,
+            'type': 'number',
+        },
+        'zIndex': {
+            'name': 'Z index',
+            'initial_value': 1,
+            'value': 1,
             'type': 'number',
         },
         'fillStyle': {
             'name': 'Color',
-            'initial_value': '#456789',
+            'initialValue': '#456789',
             'value': '#456789',
             'type': 'color',
         },

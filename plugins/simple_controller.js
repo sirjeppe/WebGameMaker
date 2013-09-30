@@ -7,27 +7,27 @@ function SimpleControllerPlugin () {
 
     this.settings = {
         'id': {
-            'initial_value': 'simple_controller',
+            'initialValue': 'simple_controller',
             'value': 'simple_controller',
             'type': 'text',
         },
         'object_id': {
-            'initial_value': '',
+            'initialValue': '',
             'value': '',
             'type': 'text'
         },
         'speed_x': {
-            'initial_value': 1,
+            'initialValue': 1,
             'value': 1,
             'type': 'number',
         },
         'speed_y': {
-            'initial_value': 1,
+            'initialValue': 1,
             'value': 1,
             'type': 'number',
         },
         'time_interval': {
-            'initial_value': 1000,
+            'initialValue': 1000,
             'value': 1000,
             'type': 'number',
         }

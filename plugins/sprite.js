@@ -6,37 +6,37 @@ function SpritePlugin() {
 
     this.settings = {
         'id': {
-            'initial_value': 'sprite',
+            'initialValue': 'sprite',
             'value': 'sprite',
             'type': 'text',
         },
         'x': {
-            'initial_value': 0,
+            'initialValue': 0,
             'value': 0,
             'type': 'number',
         },
         'y': {
-            'initial_value': 0,
+            'initialValue': 0,
             'value': 0,
             'type': 'number',
         },
         'width': {
-            'initial_value': 100,
+            'initialValue': 100,
             'value': 100,
             'type': 'number',
         },
         'height': {
-            'initial_value': 100,
+            'initialValue': 100,
             'value': 100,
             'type': 'number',
         },
         'zIndex': {
-            'initial_value': 1,
+            'initialValue': 1,
             'value': 1,
             'type': 'number',
         },
         'speedX': {
-            'initial_value': 0,
+            'initialValue': 0,
             'value': 0,
             'type': 'number',
             'extraAttributes': {
@@ -44,7 +44,7 @@ function SpritePlugin() {
             },
         },
         'speedY': {
-            'initial_value': 0,
+            'initialValue': 0,
             'value': 0,
             'type': 'number',
             'extraAttributes': {
@@ -52,7 +52,7 @@ function SpritePlugin() {
             },
         },
         'weight': {
-            'initial_value': 1,
+            'initialValue': 1,
             'value': 1,
             'type': 'number',
             'extraAttributes': {
@@ -60,7 +60,7 @@ function SpritePlugin() {
             },
         },
         'fill_style': {
-            'initial_value': '#0000ff',
+            'initialValue': '#0000ff',
             'value': '#0000ff',
             'type': 'color',
         },

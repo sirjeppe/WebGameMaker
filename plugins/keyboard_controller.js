@@ -7,22 +7,22 @@ function KeyboardControllerPlugin () {
 
     this.settings = {
         'id': {
-            'initial_value': 'keyboard_controller',
+            'initialValue': 'keyboard_controller',
             'value': 'keyboard_controller',
             'type': 'text',
         },
         'object_id': {
-            'initial_value': '',
+            'initialValue': '',
             'value': '',
             'type': 'text'
         },
         'speed_x': {
-            'initial_value': 1,
+            'initialValue': 1,
             'value': 1,
             'type': 'number',
         },
         'speed_y': {
-            'initial_value': 1,
+            'initialValue': 1,
             'value': 1,
             'type': 'number',
         },
