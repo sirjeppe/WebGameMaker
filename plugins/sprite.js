@@ -51,6 +51,11 @@ function SpritePlugin() {
                 'step': 'any'
             },
         },
+        'collides': {
+            'initialValue': true,
+            'value': true,
+            'type': 'checkbox',
+        },
         'weight': {
             'initialValue': 1,
             'value': 1,

@@ -52,6 +52,11 @@ function Text() {
             'value': 1,
             'type': 'number',
         },
+        'collides': {
+            'initialValue': false,
+            'value': false,
+            'type': 'checkbox',
+        },
         'fillStyle': {
             'name': 'Color',
             'initialValue': '#456789',

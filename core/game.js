@@ -39,7 +39,9 @@ function Game() {
         plugins.sort(this.sortPluginsByZIndex);
         for (var p in plugins) {
             if (plugins[p].type == 'object') {
-                collisionDetector.findCollisions(plugins[p]);
+                if (plugins[p].settings.collides.value) {
+                    collisionDetector.findCollisions(plugins[p]);
+                }
                 plugins[p].draw(draw_info);
             }
         }

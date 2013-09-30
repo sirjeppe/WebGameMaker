@@ -36,7 +36,12 @@ function UI() {
             } else {
                 var inputElem = document.createElement('input');
                 inputElem.type = settings[s].type;
-                inputElem.value = settings[s].initialValue;
+                // Checkboxes takes "checked", not "value"
+                if (settings[s].type == 'checkbox') {
+                    inputElem.checked = settings[s].initialValue;
+                } else {
+                    inputElem.value = settings[s].initialValue;
+                }
                 if (settings[s].type == 'button') {
                     inputElem.onclick = settings[s].onclick;
                 }

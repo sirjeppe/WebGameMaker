@@ -91,7 +91,7 @@ WebGameMaker.initGames = function() {
 }
 
 WebGameMaker.loadGame = function(game) {
-    console.log('Loading game: ' + game.prototype.name);    
+    console.log('Loading game: ' + game.prototype.name);
     WebGameMaker.Game = game();
 }
 
@@ -106,11 +106,22 @@ WebGameMaker.loadGame = function(game) {
  */
 WebGameMaker.setActivePluginInstance = function(instance) {
     var propertyUpdated = bind(this, function(evt) {
-        WebGameMaker.updateActivePluginInstanceProperty(
-                instance,
-                evt.srcElement.id,
-                evt.srcElement.type,
-                evt.srcElement.value);
+        /**
+         * Special case for checkboxes needed
+         */
+        if (evt.srcElement.type == 'checkbox') {
+            WebGameMaker.updateActivePluginInstanceProperty(
+                    instance,
+                    evt.srcElement.id,
+                    evt.srcElement.type,
+                    evt.srcElement.checked);
+        } else {
+            WebGameMaker.updateActivePluginInstanceProperty(
+                    instance,
+                    evt.srcElement.id,
+                    evt.srcElement.type,
+                    evt.srcElement.value);
+        }
     });
 
     var submitSettings = bind(this, function() {
