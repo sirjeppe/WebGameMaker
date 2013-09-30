@@ -74,7 +74,7 @@ function SpritePlugin() {
                 'step': 'any'
             },
         },
-        'fill_style': {
+        'fillStyle': {
             'name': 'Fill color',
             'initialValue': '#0000ff',
             'value': '#0000ff',
@@ -119,7 +119,7 @@ function SpritePlugin() {
     }
 
     this.draw = function(info) {
-        info.canvas_context.fillStyle = this.settings.fill_style.value;
+        info.canvas_context.fillStyle = this.settings.fillStyle.value;
         info.canvas_context.fillRect(
                 this.settings.x.value + positionDiff.x,
                 this.settings.y.value + positionDiff.y,
