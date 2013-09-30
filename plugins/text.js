@@ -53,6 +53,7 @@ function Text() {
             'type': 'number',
         },
         'collides': {
+            'name': 'Collides',
             'initialValue': false,
             'value': false,
             'type': 'checkbox',

@@ -6,36 +6,43 @@ function SpritePlugin() {
 
     this.settings = {
         'id': {
+            'name': 'ID',
             'initialValue': 'sprite',
             'value': 'sprite',
             'type': 'text',
         },
         'x': {
+            'name': 'X',
             'initialValue': 0,
             'value': 0,
             'type': 'number',
         },
         'y': {
+            'name': 'Y',
             'initialValue': 0,
             'value': 0,
             'type': 'number',
         },
         'width': {
+            'name': 'Width',
             'initialValue': 100,
             'value': 100,
             'type': 'number',
         },
         'height': {
+            'name': 'Height',
             'initialValue': 100,
             'value': 100,
             'type': 'number',
         },
         'zIndex': {
+            'name': 'Z index',
             'initialValue': 1,
             'value': 1,
             'type': 'number',
         },
         'speedX': {
+            'name': 'X speed',
             'initialValue': 0,
             'value': 0,
             'type': 'number',
@@ -44,6 +51,7 @@ function SpritePlugin() {
             },
         },
         'speedY': {
+            'name': 'Y speed',
             'initialValue': 0,
             'value': 0,
             'type': 'number',
@@ -52,11 +60,13 @@ function SpritePlugin() {
             },
         },
         'collides': {
+            'name': 'Collides',
             'initialValue': true,
             'value': true,
             'type': 'checkbox',
         },
         'weight': {
+            'name': 'Weight',
             'initialValue': 1,
             'value': 1,
             'type': 'number',
@@ -65,6 +75,7 @@ function SpritePlugin() {
             },
         },
         'fill_style': {
+            'name': 'Fill color',
             'initialValue': '#0000ff',
             'value': '#0000ff',
             'type': 'color',
