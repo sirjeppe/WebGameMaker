@@ -41,14 +41,14 @@ function PluginManager() {
     }
 
     this.findAndInjectPlugins = function(pluginsFolder, callback) {
-        if (document.location.protocol == 'http' || document.location.protocol == 'https') {
+        if (document.location.protocol == 'http:' || document.location.protocol == 'https:') {
             var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
+            xhr.onreadystatechange = bind(this, function() {
                 if (xhr.status = 200 && xhr.readyState == 4) {
                     var fileList = this.addPluginsFolderPath(pluginsFolder, xhr.responseText);
                     WebGameMaker.injectScripts(fileList, callback);
                 }
-            };
+            });
             xhr.open('GET', pluginsFolder + '/plugins.php?cmd=list', true);
             xhr.send();
         } else {
