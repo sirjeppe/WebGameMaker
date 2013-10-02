@@ -43,7 +43,7 @@ function PluginManager() {
                 WebGameMaker.injectScripts(fileList, callback);
             }
         };
-        xhr.open('GET', pluginsFolder + '/list_plugins.php', true);
+        xhr.open('GET', pluginsFolder + '/plugins.php?cmd=list', true);
         xhr.send();
     }
 
