@@ -31,20 +31,36 @@ function PluginManager() {
         return undefined;
     }
 
+    this.addPluginsFolderPath = function(pluginsFolder, fileList) {
+        // Make sure folder name is present
+        var fixedFileList = (typeof fileList != 'object') ? JSON.parse(fileList) : fileList;
+        for (var i in fixedFileList) {
+            fixedFileList[i] = pluginsFolder + '/' + fixedFileList[i];
+        }
+        return fixedFileList;
+    }
+
     this.findAndInjectPlugins = function(pluginsFolder, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.status = 200 && xhr.readyState == 4) {
-                // Make sure folder name is present
-                var fileList = JSON.parse(xhr.responseText);
-                for (var i in fileList) {
-                    fileList[i] = pluginsFolder + '/' + fileList[i];
+        if (document.location.protocol == 'http' || document.location.protocol == 'https') {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.status = 200 && xhr.readyState == 4) {
+                    var fileList = this.addPluginsFolderPath(pluginsFolder, xhr.responseText);
+                    WebGameMaker.injectScripts(fileList, callback);
                 }
+            };
+            xhr.open('GET', pluginsFolder + '/plugins.php?cmd=list', true);
+            xhr.send();
+        } else {
+            // We're offline - use offline list instead
+            var s = document.createElement('script');
+            s.src = pluginsFolder + '/installed_plugins.js';
+            s.onload = bind(this, function() {
+                var fileList = this.addPluginsFolderPath(pluginsFolder, WebGameMaker.setup.installedPlugins);
                 WebGameMaker.injectScripts(fileList, callback);
-            }
-        };
-        xhr.open('GET', pluginsFolder + '/plugins.php?cmd=list', true);
-        xhr.send();
+            });
+            document.querySelector('head').appendChild(s);
+        }
     }
 
 }

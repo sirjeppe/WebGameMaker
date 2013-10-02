@@ -7,7 +7,6 @@ WebGameMaker.setup = {
     'coreFolder': 'core',
     'pluginsFolder': 'plugins',
     'gamesFolder': 'games',
-    'useXMLHttpRequest': false,
     'defaultPlugins': [],
 }
 
@@ -22,12 +21,6 @@ WebGameMaker.requiredResources = [
     WebGameMaker.setup.coreFolder + '/collision_detector.js',
 ];
 
-WebGameMaker.setup.defaultPlugins.push(WebGameMaker.setup.pluginsFolder + '/audio_synthesizer.js');
-WebGameMaker.setup.defaultPlugins.push(WebGameMaker.setup.pluginsFolder + '/keyboard_controller.js');
-WebGameMaker.setup.defaultPlugins.push(WebGameMaker.setup.pluginsFolder + '/keyboard_controller.js');
-WebGameMaker.setup.defaultPlugins.push(WebGameMaker.setup.pluginsFolder + '/simple_controller.js');
-WebGameMaker.setup.defaultPlugins.push(WebGameMaker.setup.pluginsFolder + '/sprite.js');
-WebGameMaker.setup.defaultPlugins.push(WebGameMaker.setup.pluginsFolder + '/text.js');
 WebGameMaker.setup.defaultPlugins.push(WebGameMaker.setup.gamesFolder + '/single_sprite.js');
 
 WebGameMaker.init = function() {
@@ -57,12 +50,8 @@ WebGameMaker.init = function() {
       WebGameMaker.initGames();
     }
 
-    if (WebGameMaker.setup.useXMLHttpRequest) {
-        WebGameMaker.PluginManager.findAndInjectPlugins(
-                WebGameMaker.setup.pluginsFolder, initPluginsCallback);
-    } else {
-        WebGameMaker.injectScripts(WebGameMaker.setup.defaultPlugins, initPluginsCallback);
-    }
+    WebGameMaker.PluginManager.findAndInjectPlugins(WebGameMaker.setup.pluginsFolder, initPluginsCallback);
+    WebGameMaker.injectScripts(WebGameMaker.setup.defaultPlugins, initPluginsCallback);
 
 }
 
@@ -210,8 +199,9 @@ WebGameMaker.injectScripts = function(fileList, callback) {
             progress.injected++;
             if (progress.injected == progress.target && progress.callback) {
                 WebGameMaker.injectScriptsProgress = {};
-                // setTimeout(progress.callback, 1);
-                progress.callback();
+                // We need to exit the current script block for the last loaded
+                // script to be executed, and we do this with a simple setTimeout()
+                setTimeout(progress.callback, 1);
             }
         }
         document.querySelector('head').appendChild(s);
