@@ -6,7 +6,7 @@ function Text() {
 
     this.settings = {
         'id': {
-            'name': 'Object ID',
+            'name': 'ID',
             'initialValue': 'text1',
             'value': 'text1',
             'type': 'text',
