@@ -70,10 +70,22 @@ function AudioSynthesizerPlugin() {
             'value': 'square',
             'type': 'enum',
             'values': [
-                'sine',
-                'square',
-                'sawtooth',
-                'triangle',
+                {
+                    'name': 'Sine',
+                    'value': 'sine',
+                },
+                {
+                    'name': 'Square',
+                    'value': 'square',
+                },
+                {
+                    'name': 'Sawtooth',
+                    'value': 'sawtooth',
+                },
+                {
+                    'name': 'Triangle',
+                    'value': 'triangle',
+                },
             ]
         },
         'bpm': {

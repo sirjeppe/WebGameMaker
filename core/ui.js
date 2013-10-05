@@ -26,8 +26,8 @@ function UI() {
                 var inputElem = document.createElement('select');
                 for (var i = 0; i < settings[s].values.length; i++) {
                     var o = document.createElement('option');
-                    o.value = settings[s].values[i];
-                    o.textContent = settings[s].values[i];
+                    o.value = settings[s].values[i].value;
+                    o.textContent = settings[s].values[i].name;
                     if (o.value == settings[s].initialValue) {
                         o.selected = 'selected';
                     }
