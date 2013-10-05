@@ -62,7 +62,7 @@ function AudioSynthesizerPlugin() {
             'name': 'Object ID',
             'initialValue': '',
             'value': '',
-            'type': 'text'
+            'type': 'objectList'
         },
         'waveForm': {
             'name': 'Wave form',

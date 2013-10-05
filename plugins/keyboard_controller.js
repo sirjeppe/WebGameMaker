@@ -14,7 +14,7 @@ function KeyboardControllerPlugin () {
         'objectID': {
             'initialValue': '',
             'value': '',
-            'type': 'text'
+            'type': 'objectList'
         },
         'speedX': {
             'initialValue': 1,
