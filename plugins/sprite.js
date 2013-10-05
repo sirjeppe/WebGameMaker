@@ -119,8 +119,8 @@ function SpritePlugin() {
     }
 
     this.draw = function(info) {
-        info.canvas_context.fillStyle = this.settings.fillStyle.value;
-        info.canvas_context.fillRect(
+        info.canvasContext.fillStyle = this.settings.fillStyle.value;
+        info.canvasContext.fillRect(
                 this.settings.x.value + positionDiff.x,
                 this.settings.y.value + positionDiff.y,
                 this.settings.width.value,

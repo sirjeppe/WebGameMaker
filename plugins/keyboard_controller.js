@@ -7,21 +7,21 @@ function KeyboardControllerPlugin () {
 
     this.settings = {
         'id': {
-            'initialValue': 'keyboard_controller',
-            'value': 'keyboard_controller',
+            'initialValue': 'keyboardController',
+            'value': 'keyboardController',
             'type': 'text',
         },
-        'object_id': {
+        'objectID': {
             'initialValue': '',
             'value': '',
             'type': 'text'
         },
-        'speed_x': {
+        'speedX': {
             'initialValue': 1,
             'value': 1,
             'type': 'number',
         },
-        'speed_y': {
+        'speedY': {
             'initialValue': 1,
             'value': 1,
             'type': 'number',
@@ -50,19 +50,19 @@ function KeyboardControllerPlugin () {
                 return;
 
             var object = WebGameMaker.Game.getPluginById(
-                this.settings.object_id.value);
+                this.settings.objectID.value);
             if (!object) {
                 return;
             }
 
             if (ev.which == 38) {
-                object.move(0, -this.settings.speed_y.value);
+                object.move(0, -this.settings.speedY.value);
             } else if (ev.which == 40) {
-                object.move(0, this.settings.speed_y.value);
+                object.move(0, this.settings.speedY.value);
             } else if (ev.which == 37) {
-                object.move(-this.settings.speed_x.value, 0);
+                object.move(-this.settings.speedX.value, 0);
             } else if (ev.which == 39) {
-                object.move(this.settings.speed_x.value, 0);
+                object.move(this.settings.speedX.value, 0);
             }
         }));
     }

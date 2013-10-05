@@ -31,7 +31,7 @@ function AudioSynthesizerPlugin() {
             var octave = tone[2].match(/[0-9]+/);
 
             var oscillator = this.audioContext.createOscillator();
-            oscillator.type = this.settings.wave_form.value;
+            oscillator.type = this.settings.waveForm.value;
             oscillator.connect(gainNode);
             if (key == '-') {
                 oscillator.frequency.value = 0;
@@ -58,13 +58,13 @@ function AudioSynthesizerPlugin() {
             'value': 'synthesizer1',
             'type': 'text',
         },
-        'object_id': {
+        'objectID': {
             'name': 'Object ID',
             'initialValue': '',
             'value': '',
             'type': 'text'
         },
-        'wave_form': {
+        'waveForm': {
             'name': 'Wave form',
             'initialValue': 'square',
             'value': 'square',
@@ -128,7 +128,7 @@ function AudioSynthesizerPlugin() {
     this.renderedMelody = [];
 
     this.initialize = function() {
-        var object = WebGameMaker.Game.getPluginById(this.settings.object_id.value);
+        var object = WebGameMaker.Game.getPluginById(this.settings.objectID.value);
         object.addCollisionHandler(bind(this, function(objects) {
             this.play();
         }));

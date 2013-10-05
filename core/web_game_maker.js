@@ -174,14 +174,14 @@ WebGameMaker.updateActivePluginInstanceProperty = function(instance, property, t
 }
 
 WebGameMaker.update = function() {
-    var draw_info = {
-        'canvas_context': WebGameMaker.Settings.canvas.context,
+    var drawInfo = {
+        'canvasContext': WebGameMaker.Settings.canvas.context,
     }
 
-    draw_info['canvas_context'].clearRect(0, 0, WebGameMaker.Settings.canvas.width,
+    drawInfo['canvasContext'].clearRect(0, 0, WebGameMaker.Settings.canvas.width,
             WebGameMaker.Settings.canvas.height);
 
-    WebGameMaker.Game.draw(draw_info);
+    WebGameMaker.Game.draw(drawInfo);
     window.requestAnimationFrame(WebGameMaker.update);
 }
 

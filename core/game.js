@@ -35,14 +35,14 @@ function Game() {
         plugins.push(instance);
     }
 
-    this.draw = function(draw_info) {
+    this.draw = function(drawInfo) {
         plugins.sort(this.sortPluginsByZIndex);
         for (var p in plugins) {
             if (plugins[p].type == 'object') {
                 if (plugins[p].settings.collides.value) {
                     collisionDetector.findCollisions(plugins[p]);
                 }
-                plugins[p].draw(draw_info);
+                plugins[p].draw(drawInfo);
             }
         }
     }

@@ -7,26 +7,26 @@ function SimpleControllerPlugin () {
 
     this.settings = {
         'id': {
-            'initialValue': 'simple_controller',
-            'value': 'simple_controller',
+            'initialValue': 'simpleController',
+            'value': 'simpleController',
             'type': 'text',
         },
-        'object_id': {
+        'objectID': {
             'initialValue': '',
             'value': '',
             'type': 'text'
         },
-        'speed_x': {
+        'speedX': {
             'initialValue': 1,
             'value': 1,
             'type': 'number',
         },
-        'speed_y': {
+        'speedY': {
             'initialValue': 1,
             'value': 1,
             'type': 'number',
         },
-        'time_interval': {
+        'timeInterval': {
             'initialValue': 1000,
             'value': 1000,
             'type': 'number',
@@ -35,19 +35,19 @@ function SimpleControllerPlugin () {
 
     this.initialize = function() {
         var object = WebGameMaker.Game.getPluginById(
-                this.settings.object_id.value);
+                this.settings.objectID.value);
         object.addCollisionHandler(bind(this, function(obj, info) {
             var topCollision = info.collidedWith[0].collisionData.topLeftCollision && info.collidedWith[0].collisionData.topRightCollision;
             var rightCollision = info.collidedWith[0].collisionData.topRightCollision && info.collidedWith[0].collisionData.bottomRightCollision;
             var bottomCollision = info.collidedWith[0].collisionData.bottomRightCollision && info.collidedWith[0].collisionData.bottomLeftCollision;
             var leftCollision = info.collidedWith[0].collisionData.bottomLeftCollision && info.collidedWith[0].collisionData.topLeftCollision;
             if (topCollision || bottomCollision) {
-                this.settings.speed_y.value = -this.settings.speed_y.value;
+                this.settings.speedY.value = -this.settings.speedY.value;
             } else {
-                this.settings.speed_x.value = -this.settings.speed_x.value;
+                this.settings.speedX.value = -this.settings.speedX.value;
             }
 
-            obj.move(this.settings.speed_x.value, this.settings.speed_y.value);
+            obj.move(this.settings.speedX.value, this.settings.speedY.value);
         }));
     }
 
@@ -69,15 +69,15 @@ function SimpleControllerPlugin () {
             return;
 
         var object = WebGameMaker.Game.getPluginById(
-                this.settings.object_id.value);
+                this.settings.objectID.value);
 
         if (object)
-            object.move(this.settings.speed_x.value, this.settings.speed_y.value);
+            object.move(this.settings.speedX.value, this.settings.speedY.value);
         else
             console.log('Invalid object id given: ' +
-                this.settings.object_id.value);
+                this.settings.objectID.value);
 
-        setTimeout(bind(this, this.update), this.settings.time_interval.value);
+        setTimeout(bind(this, this.update), this.settings.timeInterval.value);
     }
 }
 

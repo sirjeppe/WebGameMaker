@@ -67,10 +67,10 @@ function Text() {
     };
 
     this.draw = function(info) {
-        info.canvas_context.fillStyle = this.settings.fillStyle.value;
-        info.canvas_context.font = this.settings.fontSize.value + 'px ' +
+        info.canvasContext.fillStyle = this.settings.fillStyle.value;
+        info.canvasContext.font = this.settings.fontSize.value + 'px ' +
                                    this.settings.font.value;
-        info.canvas_context.fillText(this.settings.text.value,
+        info.canvasContext.fillText(this.settings.text.value,
                                      this.settings.x.value,
                                      this.settings.y.value);
     };
