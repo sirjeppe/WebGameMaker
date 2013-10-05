@@ -28,6 +28,16 @@ function Game() {
         return plugins;
     }
 
+    this.getPluginInstancesByType = function(objectType) {
+        var pluginsByType = [];
+        for (var p in plugins) {
+            if (plugins[p].type == objectType) {
+                pluginsByType.push(plugins[p]);
+            }
+        }
+        return pluginsByType;
+    }
+
     this.addPluginInstance = function(instance) {
         if (instance.type == 'object')
             collisionDetector.addObject(instance);
@@ -36,13 +46,14 @@ function Game() {
     }
 
     this.draw = function(drawInfo) {
-        plugins.sort(this.sortPluginsByZIndex);
-        for (var p in plugins) {
-            if (plugins[p].type == 'object') {
-                if (plugins[p].settings.collides.value) {
-                    collisionDetector.findCollisions(plugins[p]);
+        var objectsToDraw = this.getPluginInstancesByType('object');
+        objectsToDraw.sort(this.sortPluginsByZIndex);
+        for (var p in objectsToDraw) {
+            if (objectsToDraw[p].type == 'object') {
+                if (objectsToDraw[p].settings.collides.value) {
+                    collisionDetector.findCollisions(objectsToDraw[p]);
                 }
-                plugins[p].draw(drawInfo);
+                objectsToDraw[p].draw(drawInfo);
             }
         }
     }
@@ -56,7 +67,9 @@ function Game() {
     }
 
     this.sortPluginsByZIndex = function(a, b) {
-        return (a.settings.zIndex.value < b.settings.zIndex.value) ? -1 : 1;
+        if (a.settings.zIndex && b.settings.zIndex) {
+            return (a.settings.zIndex.value < b.settings.zIndex.value) ? -1 : 1;
+        }
     }
 
 }
