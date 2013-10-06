@@ -43,11 +43,11 @@ WebGameMaker.init = function() {
     WebGameMaker.UI.positionCanvas();
 
     var initPluginsCallback = function() {
-      WebGameMaker.initPlugins();
-      WebGameMaker.Game = new Game();
-      WebGameMaker.update();
+        WebGameMaker.initPlugins();
+        WebGameMaker.Game = new Game();
+        WebGameMaker.update();
 
-      WebGameMaker.initGames();
+        WebGameMaker.initGames();
     }
 
     WebGameMaker.PluginManager.findAndInjectPlugins(WebGameMaker.setup.pluginsFolder, initPluginsCallback);
