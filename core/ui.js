@@ -3,7 +3,7 @@
 function UI() {
 
     this.showSettingsBox = function(pluginInstance, updateDelegate,
-            submitDelegate) {
+            submitDelegate, removeDelegate) {
         this.clearSettingsBox();
         if (!pluginInstance) {
             return false;
@@ -81,8 +81,13 @@ function UI() {
         settingsBox.appendChild(settingsBoxTable);
         var submitButton = document.createElement('input');
         submitButton.type = 'button';
-        submitButton.value = "Add to game";
-        submitButton.onclick = submitDelegate;
+        if (WebGameMaker.Game.getPluginById(settings.id.value)) {
+            submitButton.value = "Remove from game";
+            submitButton.onclick = removeDelegate;
+        } else {
+            submitButton.value = "Add to game";
+            submitButton.onclick = submitDelegate;
+        }
         settingsBox.appendChild(submitButton);
     }
 

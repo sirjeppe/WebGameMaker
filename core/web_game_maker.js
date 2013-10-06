@@ -130,8 +130,17 @@ WebGameMaker.setActivePluginInstance = function(instance) {
         }
     });
 
-    WebGameMaker.UI.showSettingsBox(instance, propertyUpdated,
-            submitSettings);
+    var removePlugin = bind(this, function() {
+        WebGameMaker.Game.removePluginInstance(instance.settings.id.value);
+        WebGameMaker.UI.clearActivePlugins();
+        WebGameMaker.UI.clearSettingsBox();
+    });
+
+    WebGameMaker.UI.showSettingsBox(
+        instance,
+        propertyUpdated,
+        submitSettings,
+        removePlugin);
 }
 
 

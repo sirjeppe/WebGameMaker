@@ -45,6 +45,15 @@ function Game() {
         plugins.push(instance);
     }
 
+    this.removePluginInstance = function(pluginID) {
+        for (var p in plugins) {
+            if (plugins[p].settings.id.value == pluginID) {
+                plugins.splice(p, 1);
+                break;
+            }
+        }
+    }
+
     this.draw = function(drawInfo) {
         var objectsToDraw = this.getPluginInstancesByType('object');
         objectsToDraw.sort(this.sortPluginsByZIndex);
@@ -64,6 +73,7 @@ function Game() {
                 return plugins[p];
             }
         }
+        return null;
     }
 
     this.sortPluginsByZIndex = function(a, b) {
