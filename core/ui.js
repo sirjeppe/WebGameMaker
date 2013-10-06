@@ -9,6 +9,20 @@ function UI() {
             return false;
         }
         var settings = pluginInstance.settings;
+        if (WebGameMaker.Game.getPluginById(settings.id.value) == pluginInstance) {
+            // Select the plugin in the active plugins dropdown
+            var activePluginsList = document.querySelector('#active_plugins');
+            var options = activePluginsList.options;
+            for (var o in options) {
+                if (options[o].value == settings.id.value) {
+                    activePluginsList.selectedIndex = o;
+                    break;
+                }
+            }
+        } else {
+            // Reset active plugin selection
+            document.querySelector('#active_plugins').selectedIndex = 0;
+        }
         var settingsBox = document.querySelector('#plugin_properties');
         var settingsBoxTable = document.createElement('table');
         settingsBoxTable.id = 'plugin_properties_table';
@@ -89,6 +103,14 @@ function UI() {
             submitButton.onclick = submitDelegate;
         }
         settingsBox.appendChild(submitButton);
+    }
+
+    this.reloadActivePluginsList = function() {
+        this.clearActivePlugins();
+        var activePlugins = WebGameMaker.Game.getPluginInstances();
+        for (var p in activePlugins) {
+            WebGameMaker.UI.addActivePlugin(activePlugins[p].settings.id.value);
+        }
     }
 
     this.clearSettingsBox = function() {

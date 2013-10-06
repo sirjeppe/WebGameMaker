@@ -52,7 +52,6 @@ WebGameMaker.init = function() {
 
     WebGameMaker.PluginManager.findAndInjectPlugins(WebGameMaker.setup.pluginsFolder, initPluginsCallback);
     WebGameMaker.injectScripts(WebGameMaker.setup.defaultPlugins, initPluginsCallback);
-
 }
 
 /**
@@ -100,16 +99,18 @@ WebGameMaker.setActivePluginInstance = function(instance) {
          */
         if (evt.srcElement.type == 'checkbox') {
             WebGameMaker.updateActivePluginInstanceProperty(
-                    instance,
-                    evt.srcElement.id,
-                    evt.srcElement.type,
-                    evt.srcElement.checked);
+                instance,
+                evt.srcElement.id,
+                evt.srcElement.type,
+                evt.srcElement.checked
+            );
         } else {
             WebGameMaker.updateActivePluginInstanceProperty(
-                    instance,
-                    evt.srcElement.id,
-                    evt.srcElement.type,
-                    evt.srcElement.value);
+                instance,
+                evt.srcElement.id,
+                evt.srcElement.type,
+                evt.srcElement.value
+            );
         }
     });
 
@@ -119,20 +120,16 @@ WebGameMaker.setActivePluginInstance = function(instance) {
             return false;
         }
 
-        WebGameMaker.UI.clearSettingsBox();
-
         WebGameMaker.Game.addPluginInstance(instance);
-        var activePlugins = WebGameMaker.Game.getPluginInstances();
-
-        WebGameMaker.UI.clearActivePlugins();
-        for (var p in activePlugins) {
-            WebGameMaker.UI.addActivePlugin(activePlugins[p].settings.id.value);
-        }
+        WebGameMaker.UI.reloadActivePluginsList();
+        WebGameMaker.setActivePluginInstance(
+            WebGameMaker.Game.getPluginById(instance.settings.id.value)
+        );
     });
 
     var removePlugin = bind(this, function() {
         WebGameMaker.Game.removePluginInstance(instance.settings.id.value);
-        WebGameMaker.UI.clearActivePlugins();
+        WebGameMaker.UI.reloadActivePluginsList();
         WebGameMaker.UI.clearSettingsBox();
     });
 
@@ -140,10 +137,9 @@ WebGameMaker.setActivePluginInstance = function(instance) {
         instance,
         propertyUpdated,
         submitSettings,
-        removePlugin);
+        removePlugin
+    );
 }
-
-
 
 WebGameMaker.updateActivePluginInstanceProperty = function(instance, property, type,
         value) {
@@ -155,19 +151,6 @@ WebGameMaker.updateActivePluginInstanceProperty = function(instance, property, t
             alert("Object with that id already exists");
             return false;
         }
-
-        // TODO(robert): Is this really needed? I don't see the point of it
-        // anymore...
-        var activePlugins = WebGameMaker.Game.getPluginInstances();
-        WebGameMaker.UI.clearActivePlugins();
-        for (var p in activePlugins) {
-            WebGameMaker.UI.addActivePlugin(
-                    activePlugins[p].settings.id.value, function(evt) {
-                        WebGameMaker.setActivePluginInstance(
-                            WebGameMaker.Game.getPluginById(evt.srcElement.id));
-                    }
-            );
-        }
     }
 
     // Store the new property in the object.
@@ -177,6 +160,13 @@ WebGameMaker.updateActivePluginInstanceProperty = function(instance, property, t
     } else {
         instance.settings[property].value = value;
         instance.settings[property].initialValue = value;
+    }
+
+    // If the ID was updated - we need to reload the list and load the settings
+    // again, but with the new ID as reference.
+    if (property == 'id') {
+        WebGameMaker.UI.reloadActivePluginsList();
+        WebGameMaker.setActivePluginInstance(instance);
     }
 
     return true;

@@ -25,6 +25,7 @@ function Game() {
     }
 
     this.getPluginInstances = function() {
+        plugins.sort(this.sortPluginsByID);
         return plugins;
     }
 
@@ -79,6 +80,12 @@ function Game() {
     this.sortPluginsByZIndex = function(a, b) {
         if (a.settings.zIndex && b.settings.zIndex) {
             return (a.settings.zIndex.value < b.settings.zIndex.value) ? -1 : 1;
+        }
+    }
+
+    this.sortPluginsByID = function(a, b) {
+        if (a.settings.id && b.settings.id) {
+            return (a.settings.id.value < b.settings.id.value) ? -1 : 1;
         }
     }
 
