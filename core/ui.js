@@ -81,7 +81,7 @@ function UI() {
         settingsBox.appendChild(settingsBoxTable);
         var submitButton = document.createElement('input');
         submitButton.type = 'button';
-        if (WebGameMaker.Game.getPluginById(settings.id.value)) {
+        if (WebGameMaker.Game.getPluginById(settings.id.value) == pluginInstance) {
             submitButton.value = "Remove from game";
             submitButton.onclick = removeDelegate;
         } else {
