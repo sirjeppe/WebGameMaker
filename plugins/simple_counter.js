@@ -59,7 +59,7 @@ function SimpleCounter() {
 
 }
 
-SimpleCounter.prototype.name = 'Simple counter';
+SimpleCounter.prototype.name = 'SimpleCounter';
 SimpleCounter.prototype.description = 'A very simple plugin that lets you increment ' +
                                       'or decrement an integer with a fixed value.';
 
