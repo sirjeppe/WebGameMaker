@@ -4,6 +4,7 @@ function KeyboardControllerPlugin () {
 
     this.type = 'controller';
     this.state = 'paused';
+    this.listenersAdded = false;
 
     this.settings = {
         'id': {
@@ -37,7 +38,10 @@ function KeyboardControllerPlugin () {
 
     this.play = function() {
         this.state = 'playing';
-        this.setEventListeners();
+        if (!this.listenersAdded) {
+            this.setEventListeners();
+            this.listenersAdded = true;
+        }
     }
 
     this.pause = function() {
