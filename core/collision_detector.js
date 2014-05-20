@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 function CollisionDetector() {
 
@@ -73,26 +73,26 @@ function CollisionDetector() {
         var bottomLeftCollision = false;
 
         if (this.intersectHelper(topLeft1, topRight2) ||
-                this.intersectHelper(topLeft1, bottomLeft2) ||
-                this.intersectHelper(topLeft1, bottomRight2)) {
+            this.intersectHelper(topLeft1, bottomLeft2) ||
+            this.intersectHelper(topLeft1, bottomRight2)) {
             topLeftCollision = true;
         }
 
         if (this.intersectHelper(topRight1, topLeft2) ||
-                this.intersectHelper(topRight1, bottomLeft2) ||
-                this.intersectHelper(topRight1, bottomRight2)) {
+            this.intersectHelper(topRight1, bottomLeft2) ||
+            this.intersectHelper(topRight1, bottomRight2)) {
             topRightCollision = true;
         }
 
         if (this.intersectHelper(bottomLeft1, topLeft2) ||
-                this.intersectHelper(bottomLeft1, topRight2) ||
-                this.intersectHelper(bottomLeft1, bottomRight2)) {
+            this.intersectHelper(bottomLeft1, topRight2) ||
+            this.intersectHelper(bottomLeft1, bottomRight2)) {
             bottomLeftCollision = true;
         }
 
         if (this.intersectHelper(bottomRight1, topRight2) ||
-                this.intersectHelper(bottomRight1, topLeft2) ||
-                this.intersectHelper(bottomRight1, bottomLeft2)) {
+            this.intersectHelper(bottomRight1, topLeft2) ||
+            this.intersectHelper(bottomRight1, bottomLeft2)) {
             bottomRightCollision = true;
         }
 
@@ -111,10 +111,15 @@ function CollisionDetector() {
     };
 
     this.intersectHelper = function(pos1, pos2) {
-        return (((pos1.x >= pos2.x && pos1.x <= pos2.x + pos2.width) &&
-                  (pos1.y >= pos2.y && pos1.y <= pos2.y + pos2.height)) ||
-                ((pos2.x >= pos1.x && pos2.x <= pos1.x + pos1.width) &&
-                  (pos2.y >= pos1.y && pos2.y <= pos1.y + pos1.height)));
+        return (
+            (
+                (pos1.x >= pos2.x && pos1.x <= pos2.x + pos2.width) &&
+                (pos1.y >= pos2.y && pos1.y <= pos2.y + pos2.height)
+            ) || (
+                (pos2.x >= pos1.x && pos2.x <= pos1.x + pos1.width) &&
+                (pos2.y >= pos1.y && pos2.y <= pos1.y + pos1.height)
+            )
+        );
     };
 
     this.addObject = function(object) {
@@ -128,7 +133,10 @@ function CollisionDetector() {
             if (object.settings.id.value != objects[i].settings.id.value) {
                 var collisionData = this.collide(object, objects[i]);
                 if (collisionData) {
-                    collidedWith.push({'objectID': objects[i].settings.id.value, 'collisionData': collisionData});
+                    collidedWith.push({
+                        'objectID': objects[i].settings.id.value,
+                        'collisionData': collisionData
+                    });
                 }
             }
         }

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 function bind(scope, fn) {
     return function() {

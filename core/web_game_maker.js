@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var WebGameMaker = {};
 
@@ -62,7 +62,8 @@ WebGameMaker.initPlugins = function() {
     var plugins = WebGameMaker.PluginManager.getPlugins();
     var pluginButtonClicked = function(evt) {
         var plugin = WebGameMaker.PluginManager.getPluginByName(
-                evt.srcElement.name);
+            evt.srcElement.name
+        );
         var instance = new plugin();
         WebGameMaker.setActivePluginInstance(instance);
     }
@@ -116,7 +117,7 @@ WebGameMaker.setActivePluginInstance = function(instance) {
 
     var submitSettings = bind(this, function() {
         if (WebGameMaker.Game.getPluginById(instance.settings.id.value)) {
-            alert("Object with that id already exists");
+            alert('Object with that id already exists');
             return false;
         }
 
@@ -141,14 +142,13 @@ WebGameMaker.setActivePluginInstance = function(instance) {
     );
 }
 
-WebGameMaker.updateActivePluginInstanceProperty = function(instance, property, type,
-        value) {
+WebGameMaker.updateActivePluginInstanceProperty = function(instance, property, type, value) {
     // In case the property that is being changed is the id, we first need
     // to verify that there isn't already an object with the new id.
     if (property == 'id') {
         var existingInstance = WebGameMaker.Game.getPluginById(value);
         if (existingInstance) {
-            alert("Object with that id already exists");
+            alert('Object with that id already exists');
             return false;
         }
     }
@@ -177,8 +177,12 @@ WebGameMaker.update = function() {
         'canvasContext': WebGameMaker.Settings.canvas.context,
     }
 
-    drawInfo['canvasContext'].clearRect(0, 0, WebGameMaker.Settings.canvas.width,
-            WebGameMaker.Settings.canvas.height);
+    drawInfo['canvasContext'].clearRect(
+        0,
+        0,
+        WebGameMaker.Settings.canvas.width,
+        WebGameMaker.Settings.canvas.height
+    );
 
     WebGameMaker.Game.draw(drawInfo);
     window.requestAnimationFrame(WebGameMaker.update);

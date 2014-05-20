@@ -1,9 +1,8 @@
-"use strict";
+'use strict';
 
 function UI() {
 
-    this.showSettingsBox = function(pluginInstance, updateDelegate,
-            submitDelegate, removeDelegate) {
+    this.showSettingsBox = function(pluginInstance, updateDelegate, submitDelegate, removeDelegate) {
         this.clearSettingsBox();
         if (!pluginInstance) {
             return false;
@@ -32,7 +31,7 @@ function UI() {
             var tdProp = document.createElement('td');
             var labelElem = document.createElement('label');
             labelElem.textContent = ((settings[s].name) ? settings[s].name : s) + ': ';
-            labelElem.for = s;
+            labelElem.setAttribute('for', s);
             tdProp.appendChild(labelElem);
 
             var tdVal = document.createElement('td');
@@ -67,7 +66,7 @@ function UI() {
             } else {
                 var inputElem = document.createElement('input');
                 inputElem.type = settings[s].type;
-                // Checkboxes takes "checked", not "value"
+                // Checkboxes takes 'checked', not 'value'
                 if (settings[s].type == 'checkbox') {
                     inputElem.checked = settings[s].initialValue;
                 } else {
@@ -96,10 +95,10 @@ function UI() {
         var submitButton = document.createElement('input');
         submitButton.type = 'button';
         if (WebGameMaker.Game.getPluginById(settings.id.value) == pluginInstance) {
-            submitButton.value = "Remove from game";
+            submitButton.value = 'Remove from game';
             submitButton.onclick = removeDelegate;
         } else {
-            submitButton.value = "Add to game";
+            submitButton.value = 'Add to game';
             submitButton.onclick = submitDelegate;
         }
         settingsBox.appendChild(submitButton);

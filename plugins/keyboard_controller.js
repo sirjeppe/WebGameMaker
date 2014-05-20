@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-function KeyboardControllerPlugin () {
+function KeyboardControllerPlugin() {
 
     this.type = 'controller';
     this.state = 'paused';
@@ -32,8 +32,7 @@ function KeyboardControllerPlugin () {
         },
     };
 
-    this.initialize = function() {
-    }
+    this.initialize = function() {}
 
     this.play = function() {
         this.state = 'playing';
@@ -49,7 +48,7 @@ function KeyboardControllerPlugin () {
     }
 
     this.setEventListeners = function() {
-        document.addEventListener("keydown", bind(this, function(ev) {
+        document.addEventListener('keydown', bind(this, function(ev) {
             if (this.state != 'playing')
                 return;
 
@@ -73,7 +72,7 @@ function KeyboardControllerPlugin () {
 }
 
 KeyboardControllerPlugin.prototype.name = 'KeyboardController';
-KeyboardControllerPlugin.prototype.description = 'Controller that uses keyboard '
-                                               'input for moving objects.';
+KeyboardControllerPlugin.prototype.description = 'Controller that uses keyboard ' +
+    'input for moving objects.';
 
 WebGameMaker.PluginManager.registerPlugin(KeyboardControllerPlugin);

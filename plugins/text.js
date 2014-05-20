@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 function Text() {
 
@@ -69,10 +69,12 @@ function Text() {
     this.draw = function(info) {
         info.canvasContext.fillStyle = this.settings.fillStyle.value;
         info.canvasContext.font = this.settings.fontSize.value + 'px ' +
-                                   this.settings.font.value;
-        info.canvasContext.fillText(this.settings.text.value,
-                                     this.settings.x.value,
-                                     this.settings.y.value);
+            this.settings.font.value;
+        info.canvasContext.fillText(
+            this.settings.text.value,
+            this.settings.x.value,
+            this.settings.y.value
+        );
     };
 
 }

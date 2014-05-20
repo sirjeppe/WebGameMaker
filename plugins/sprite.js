@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 function SpritePlugin() {
 
@@ -93,11 +93,9 @@ function SpritePlugin() {
         //collisionHandlers = [];
     }
 
-    this.play = function() {
-    }
+    this.play = function() {}
 
-    this.pause = function() {
-    }
+    this.pause = function() {}
 
     this.reset = function() {
         positionDiff.x = 0;
@@ -121,10 +119,11 @@ function SpritePlugin() {
     this.draw = function(info) {
         info.canvasContext.fillStyle = this.settings.fillStyle.value;
         info.canvasContext.fillRect(
-                this.settings.x.value + positionDiff.x,
-                this.settings.y.value + positionDiff.y,
-                this.settings.width.value,
-                this.settings.height.value);
+            this.settings.x.value + positionDiff.x,
+            this.settings.y.value + positionDiff.y,
+            this.settings.width.value,
+            this.settings.height.value
+        );
     }
 
     this.addCollisionHandler = function(callback) {
