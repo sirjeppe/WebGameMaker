@@ -64,6 +64,23 @@ function UI() {
                     }
                     inputElem.options.add(o);
                 }
+            } else if (settings[s].type == 'actionList') {
+                var inputElem = document.createElement('select');
+                // Add leading option
+                var o = document.createElement('option');
+                o.value = '';
+                o.textContent = 'None';
+                inputElem.add(o);
+                var activeObjectPlugins = WebGameMaker.Game.getPluginInstancesByType('action');
+                for (var i = 0; i < activeObjectPlugins.length; i++) {
+                    var o = document.createElement('option');
+                    o.value = activeObjectPlugins[i].settings.id.value;
+                    o.textContent = activeObjectPlugins[i].settings.id.value;
+                    if (o.value == settings[s].initialValue) {
+                        o.selected = 'selected';
+                    }
+                    inputElem.options.add(o);
+                }
             } else {
                 var inputElem = document.createElement('input');
                 inputElem.type = settings[s].type;

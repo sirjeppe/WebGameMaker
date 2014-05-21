@@ -77,6 +77,22 @@ function Game() {
         return null;
     }
 
+    this.getPluginByPosition = function(x, y) {
+        var subjects = [];
+        for (var p in plugins) {
+            if (plugins[p].type == 'object') {
+                if (x > plugins[p].settings.x.value &&
+                    x < plugins[p].settings.x.value + plugins[p].settings.width.value &
+                    y > plugins[p].settings.y.value &&
+                    y < plugins[p].settings.y.value + plugins[p].settings.height.value) {
+                    subjects.push(plugins[p]);
+                }
+            }
+        }
+        subjects.sort(this.sortPluginsByZIndex);
+        return subjects.pop();
+    }
+
     this.sortPluginsByZIndex = function(a, b) {
         if (a.settings.zIndex && b.settings.zIndex) {
             return (a.settings.zIndex.value < b.settings.zIndex.value) ? -1 : 1;
@@ -87,6 +103,36 @@ function Game() {
         if (a.settings.id && b.settings.id) {
             return (a.settings.id.value < b.settings.id.value) ? -1 : 1;
         }
+    }
+
+    this.bringToFront = function(obj) {
+        if (!'zIndex' in obj.settings) return;
+
+        var highestZIndex = 0;
+        for (var p in plugins) {
+            if (plugins[p].type == 'object') {
+                if (plugins[p].settings.zIndex.value > highestZIndex) {
+                    highestZIndex = plugins[p].settings.zIndex.value;
+                }
+            }
+        }
+
+        obj.settings.zIndex.value = highestZIndex + 1;
+    }
+
+    this.sendToBack = function(obj) {
+        if (!'zIndex' in obj.settings) return;
+
+        var lowestZIndex = 0;
+        for (var p in plugins) {
+            if (plugins[p].type == 'object') {
+                if (plugins[p].settings.zIndex.value < lowestZIndex) {
+                    lowestZIndex = plugins[p].settings.zIndex.value;
+                }
+            }
+        }
+
+        obj.settings.zIndex.value = lowestZIndex - 1;
     }
 
 }
