@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**
  * PluginManager's purpose is to keep track of all the available plugins and

@@ -18,7 +18,7 @@ function Games() {
                 return registeredGames[g];
             }
         }
-        throw Error("Could not find the requested game: " + name);
+        throw Error('Could not find the requested game: ' + name);
     }
 }
 

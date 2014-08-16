@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 function SimpleCounter() {
 
@@ -33,8 +33,7 @@ function SimpleCounter() {
     };
 
     this.initialize = function() {
-        var object = WebGameMaker.Game.getPluginById(
-                this.settings.objectID.value);
+        var object = WebGameMaker.Game.getPluginById(this.settings.objectID.value);
         object.addCollisionHandler(bind(this, function(obj, info) {
             if (this.state != 'playing') {
                 return;
@@ -61,6 +60,6 @@ function SimpleCounter() {
 
 SimpleCounter.prototype.name = 'SimpleCounter';
 SimpleCounter.prototype.description = 'A very simple plugin that lets you increment ' +
-                                      'or decrement an integer with a fixed value.';
+    'or decrement an integer with a fixed value.';
 
 WebGameMaker.PluginManager.registerPlugin(SimpleCounter);

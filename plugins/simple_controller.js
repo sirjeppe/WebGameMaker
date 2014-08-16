@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-function SimpleControllerPlugin () {
+function SimpleControllerPlugin() {
 
     this.type = 'controller';
     this.state = 'paused';
@@ -39,13 +39,16 @@ function SimpleControllerPlugin () {
     };
 
     this.initialize = function() {
-        var object = WebGameMaker.Game.getPluginById(
-                this.settings.objectID.value);
+        var object = WebGameMaker.Game.getPluginById(this.settings.objectID.value);
         object.addCollisionHandler(bind(this, function(obj, info) {
-            var topCollision = info.collidedWith[0].collisionData.topLeftCollision && info.collidedWith[0].collisionData.topRightCollision;
-            var rightCollision = info.collidedWith[0].collisionData.topRightCollision && info.collidedWith[0].collisionData.bottomRightCollision;
-            var bottomCollision = info.collidedWith[0].collisionData.bottomRightCollision && info.collidedWith[0].collisionData.bottomLeftCollision;
-            var leftCollision = info.collidedWith[0].collisionData.bottomLeftCollision && info.collidedWith[0].collisionData.topLeftCollision;
+            var topCollision = info.collidedWith[0].collisionData.topLeftCollision &&
+                info.collidedWith[0].collisionData.topRightCollision;
+            var rightCollision = info.collidedWith[0].collisionData.topRightCollision &&
+                info.collidedWith[0].collisionData.bottomRightCollision;
+            var bottomCollision = info.collidedWith[0].collisionData.bottomRightCollision &&
+                info.collidedWith[0].collisionData.bottomLeftCollision;
+            var leftCollision = info.collidedWith[0].collisionData.bottomLeftCollision &&
+                info.collidedWith[0].collisionData.topLeftCollision;
             if (topCollision || bottomCollision) {
                 this.settings.speedY.value = -this.settings.speedY.value;
             } else {
@@ -73,21 +76,19 @@ function SimpleControllerPlugin () {
         if (this.state != 'playing')
             return;
 
-        var object = WebGameMaker.Game.getPluginById(
-                this.settings.objectID.value);
+        var object = WebGameMaker.Game.getPluginById(this.settings.objectID.value);
 
         if (object)
             object.move(this.settings.speedX.value, this.settings.speedY.value);
         else
-            console.log('Invalid object id given: ' +
-                this.settings.objectID.value);
+            console.log('Invalid object id given: ' + this.settings.objectID.value);
 
         setTimeout(bind(this, this.update), this.settings.timeInterval.value);
     }
 }
 
 SimpleControllerPlugin.prototype.name = 'SimpleController';
-SimpleControllerPlugin.prototype.description = 'Simple controller for moving '
-                                               'objects around';
+SimpleControllerPlugin.prototype.description = 'Simple controller for moving ' +
+    'objects around';
 
 WebGameMaker.PluginManager.registerPlugin(SimpleControllerPlugin);
