@@ -82,6 +82,7 @@ WebGameMaker.initGames = function() {
 WebGameMaker.loadGame = function(game) {
     console.log('Loading game: ' + game.prototype.name);
     WebGameMaker.Game = game();
+    WebGameMaker.UI.reloadActivePluginsList();
 }
 
 /**
