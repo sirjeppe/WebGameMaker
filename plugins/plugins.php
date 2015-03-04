@@ -16,7 +16,7 @@ function list_plugins() {
         }
     }
     sort($file_list);
-    return json_encode($file_list, JSON_PRETTY_PRINT);
+    return json_encode($file_list, 128);
 }
 
 
