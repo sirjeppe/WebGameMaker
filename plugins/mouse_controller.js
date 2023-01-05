@@ -1,12 +1,12 @@
 'use strict';
 
-function MouseControllerPlugin() {
+class MouseControllerPlugin {
 
-    this.type = 'controller';
-    this.state = 'paused';
-    this.listenersAdded = false;
+    type = 'controller';
+    state = 'paused';
+    listenersAdded = false;
 
-    this.settings = {
+    settings = {
         'id': {
             'name': 'ID',
             'initialValue': 'mouseController',
@@ -33,24 +33,24 @@ function MouseControllerPlugin() {
         },
     };
 
-    this.initialize = function() {}
+    initialize() {}
 
-    this.play = function() {
+    play() {
         this.state = 'playing';
         if (!this.listenersAdded) {
             this.setEventListeners();
         }
     }
 
-    this.pause = function() {
+    pause() {
         this.state = 'paused';
     }
 
-    this.reset = function() {
+    reset() {
         this.pause();
     }
 
-    this.setEventListeners = function() {
+    setEventListeners() {
         WebGameMaker.Settings.canvas.element.addEventListener(
             'mousedown',
             bind(this, function(ev) {

@@ -1,10 +1,10 @@
 'use strict';
 
-function AudioSynthesizerPlugin() {
+class AudioSynthesizerPlugin {
 
-    this.type = 'controller';
+    type = 'controller';
 
-    this.play = function() {
+    play() {
         var pattern = /(1|2|4|8|16|32|64|128)(-|((c|c#|d|d#|e|f|f#|g|g#|a|a#|b)[0-9]))/g;
         var re = new RegExp(pattern);
         var toneArray = []
@@ -51,7 +51,7 @@ function AudioSynthesizerPlugin() {
         }
     }
 
-    this.settings = {
+    settings = {
         'id': {
             'name': 'ID',
             'initialValue': 'synthesizer1',
@@ -119,7 +119,7 @@ function AudioSynthesizerPlugin() {
         }
     }
 
-    this.frequencyBase = {
+    frequencyBase = {
         'b': 61.7354,
         'a#': 58.2705,
         'a': 55.0000,
@@ -134,9 +134,9 @@ function AudioSynthesizerPlugin() {
         'c': 32.7032
     };
 
-    this.renderedMelody = [];
+    renderedMelody = [];
 
-    this.initialize = function() {
+    initialize() {
         var object = WebGameMaker.Game.getPluginById(this.settings.objectID.value);
         object.addCollisionHandler(bind(this, function(objects) {
             this.play();

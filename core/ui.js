@@ -1,8 +1,8 @@
 'use strict';
 
-function UI() {
+class UI {
 
-    this.showSettingsBox = function(pluginInstance, updateDelegate, submitDelegate, removeDelegate) {
+    showSettingsBox(pluginInstance, updateDelegate, submitDelegate, removeDelegate) {
         this.clearSettingsBox();
         if (!pluginInstance) {
             return false;
@@ -110,6 +110,7 @@ function UI() {
         }
         settingsBox.appendChild(settingsBoxTable);
         var submitButton = document.createElement('input');
+        submitButton.classList.add('addToGame')
         submitButton.type = 'button';
         if (WebGameMaker.Game.getPluginById(settings.id.value) == pluginInstance) {
             submitButton.value = 'Remove from game';
@@ -121,7 +122,7 @@ function UI() {
         settingsBox.appendChild(submitButton);
     }
 
-    this.reloadActivePluginsList = function() {
+    reloadActivePluginsList() {
         this.clearActivePlugins();
         var activePlugins = WebGameMaker.Game.getPluginInstances();
         for (var p in activePlugins) {
@@ -129,12 +130,12 @@ function UI() {
         }
     }
 
-    this.clearSettingsBox = function() {
+    clearSettingsBox() {
         var settingsBox = document.querySelector('#plugin_properties');
         settingsBox.innerHTML = '';
     }
 
-    this.addPluginButton = function(plugin, delegate) {
+    addPluginButton(plugin, delegate) {
         var pluginsList = document.querySelector('#plugin_list');
         var button = document.createElement('input');
         button.type = 'button';
@@ -147,7 +148,7 @@ function UI() {
         this.sortPluginButtons();
     }
 
-    this.sortPluginButtons = function() {
+    sortPluginButtons() {
         var pluginsList = document.querySelector('#plugin_list');
         var buttonsNodeList = document.querySelectorAll('#plugin_list input');
         var buttonsArray = [];
@@ -160,15 +161,14 @@ function UI() {
         document.querySelector('#plugin_list').innerHTML = '';
         for (var b in buttonsArray) {
             pluginsList.appendChild(buttonsArray[b]);
-            pluginsList.appendChild(document.createElement('br'));
         }
     };
 
-    this.sortByPluginName = function(a, b) {
+    sortByPluginName(a, b) {
         return (a.name < b.name) ? -1 : 1;
     };
 
-    this.clearActivePlugins = function() {
+    clearActivePlugins() {
         var activePluginsList = document.querySelector('#active_plugins');
         activePluginsList.innerHTML = '';
         var option = document.createElement('option');
@@ -177,7 +177,7 @@ function UI() {
         activePluginsList.options.add(option);
     }
 
-    this.addActivePlugin = function(id) {
+    addActivePlugin(id) {
         var activePluginsList = document.querySelector('#active_plugins');
         var option = document.createElement('option');
         option.value = id;
@@ -185,7 +185,7 @@ function UI() {
         activePluginsList.options.add(option);
     }
 
-    this.positionCanvas = function() {
+    positionCanvas() {
         var canvas = WebGameMaker.Settings.canvas;
         canvas.left = parseInt(window.innerWidth / 2) - parseInt(canvas.width / 2);
         canvas.top = parseInt(window.innerHeight / 2) - parseInt(canvas.height / 2);
@@ -193,7 +193,7 @@ function UI() {
         WebGameMaker.Settings.canvas.element.style.left = canvas.left + 'px';
     }
 
-    this.addStoredGame = function(name) {
+    addStoredGame(name) {
         var storedGamesSelect = document.getElementById('stored_games');
         var newOption = document.createElement('option');
         newOption.text = name;
@@ -201,6 +201,6 @@ function UI() {
     }
 }
 
-WebGameMaker.UI = new UI;
+WebGameMaker.UI = new UI();
 
 window.addEventListener('resize', WebGameMaker.UI.positionCanvas, false);

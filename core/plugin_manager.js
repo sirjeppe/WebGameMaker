@@ -5,33 +5,33 @@
  * should offer a suitable interface for querying for plugins, such as searching
  * by name or other properties.
  */
-function PluginManager() {
+class PluginManager {
 
     /**
      * List of all the plugins that is available. The objects in this list are
      * used for creating new plugin instances (they are not instances
      * themselves).
      */
-    var installedPlugins = [];
+    installedPlugins = [];
 
-    this.registerPlugin = function(plugin) {
-        installedPlugins.push(plugin);
+    registerPlugin(plugin) {
+        this.installedPlugins.push(plugin);
     }
 
-    this.getPlugins = function() {
-        return installedPlugins;
+    getPlugins() {
+        return this.installedPlugins;
     }
 
-    this.getPluginByName = function(name) {
-        for (var p in installedPlugins) {
-            if (installedPlugins[p].prototype.name == name) {
-                return installedPlugins[p];
+    getPluginByName(name) {
+        for (var p in this.installedPlugins) {
+            if (this.installedPlugins[p].prototype.name == name) {
+                return this.installedPlugins[p];
             }
         }
         return undefined;
     }
 
-    this.addPluginsFolderPath = function(pluginsFolder, fileList) {
+    addPluginsFolderPath(pluginsFolder, fileList) {
         // Make sure folder name is present
         var fixedFileList = (typeof fileList != 'object') ? JSON.parse(fileList) : fileList;
         for (var i in fixedFileList) {
@@ -40,7 +40,7 @@ function PluginManager() {
         return fixedFileList;
     }
 
-    this.findAndInjectPlugins = function(pluginsFolder, callback) {
+    findAndInjectPlugins(pluginsFolder, callback) {
         if (document.location.protocol == 'http:' || document.location.protocol == 'https:') {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = bind(this, function() {
@@ -65,4 +65,4 @@ function PluginManager() {
 
 }
 
-WebGameMaker.PluginManager = new PluginManager;
+WebGameMaker.PluginManager = new PluginManager();

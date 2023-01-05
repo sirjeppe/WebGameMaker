@@ -1,41 +1,42 @@
 <!doctype html>
 <html>
-    <head>
-        <title>WebGameMaker</title>
-        <meta http-equiv="cache-control" content="no-cache">
-        <script src="core/web_game_maker.js"></script>
-        <link href="css/style.css" rel="stylesheet" type="text/css">
-    </head>
-    <body>
-        <div id="left_bar">
-            <div class="box">
-                <input type="button" value="Play" onclick="WebGameMaker.Game.play()">
-                <input type="button" value="Reset" onclick="WebGameMaker.Game.reset()">
-                <input type="button" value="Pause" onclick="WebGameMaker.Game.pause()">
-            </div>
-            <div id="plugin_list" class="box">
-            </div>
+
+<head>
+    <title>WebGameMaker</title>
+    <meta http-equiv="cache-control" content="no-cache">
+    <script src="core/web_game_maker.js"></script>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div id="left_bar">
+        <div class="box">
+            <input type="button" value="Play" onclick="WebGameMaker.Game.play()">
+            <input type="button" value="Reset" onclick="WebGameMaker.Game.reset()">
+            <input type="button" value="Pause" onclick="WebGameMaker.Game.pause()">
         </div>
-        <div id="right_bar">
-            <div id="active_plugins_box" class="box">
-                <select id="active_plugins"
-                    onchange="WebGameMaker.setActivePluginInstance(
+        <div id="plugin_list" class="box">
+        </div>
+    </div>
+    <div id="right_bar">
+        <div id="active_plugins_box" class="box">
+            <select id="active_plugins" onchange="WebGameMaker.setActivePluginInstance(
                       WebGameMaker.Game.getPluginById(this.options[this.selectedIndex].value))">
-                    <option value="">No active plugins</option>
-                </select>
-            </div>
-            <div class="box" id="plugin_properties">
-                <i class="info">No plugin selected.</i>
-            </div>
-            <br>
-            <div id="stored_games_box" class="box">
-                <select id="stored_games"
-                    onchange="WebGameMaker.loadGame(
-                      WebGameMaker.Games.getGameByName(this.options[this.selectedIndex].value))">
-                    <option value="">Select game</option>
-                </select>
-            </div>
+                <option value="">No active plugins</option>
+            </select>
         </div>
-        <canvas id="canvas" width="600px" height="440px"></canvas>
-    </body>
+        <div class="box" id="plugin_properties">
+            <i class="info">No plugin selected.</i>
+        </div>
+        <br>
+        <div id="stored_games_box" class="box">
+            <select id="stored_games" onchange="WebGameMaker.loadGame(
+                      WebGameMaker.Games.getGameByName(this.options[this.selectedIndex].value))">
+                <option value="">Select game</option>
+            </select>
+        </div>
+    </div>
+    <canvas id="canvas" width="600px" height="440px"></canvas>
+</body>
+
 </html>

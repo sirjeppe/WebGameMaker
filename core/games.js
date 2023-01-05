@@ -1,21 +1,21 @@
-function Games() {
+class Games {
 
-    var registeredGames = [];
+    registeredGames = [];
 
-    this.registerGame = function(game) {
-        registeredGames.push(game);
+    registerGame(game) {
+        this.registeredGames.push(game);
     }
 
-    this.getGames = function(index) {
-        return registeredGames;
+    getGames(index) {
+        return this.registeredGames;
     }
 
-    this.getGameByName = function(name) {
+    getGameByName(name) {
         console.log('looking for game: ' + name);
-        for (var g in registeredGames) {
-            if (registeredGames[g].prototype.name == name) {
+        for (var g in this.registeredGames) {
+            if (this.registeredGames[g].prototype.name == name) {
                 console.log('Found the game, name = ' + name);
-                return registeredGames[g];
+                return this.registeredGames[g];
             }
         }
         throw Error('Could not find the requested game: ' + name);

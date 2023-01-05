@@ -1,10 +1,10 @@
 'use strict';
 
-function SpritePlugin() {
+class SpritePlugin {
 
-    this.type = 'object';
+    type = 'object';
 
-    this.settings = {
+    settings = {
         'id': {
             'name': 'ID',
             'initialValue': 'sprite',
@@ -82,55 +82,55 @@ function SpritePlugin() {
         },
     };
 
-    var collisionHandlers = [];
+    collisionHandlers = [];
 
-    var positionDiff = {
+    positionDiff = {
         'x': 0,
         'y': 0,
     }
 
-    this.initialize = function() {
+    initialize() {
         //collisionHandlers = [];
     }
 
-    this.play = function() {}
+    play() {}
 
-    this.pause = function() {}
+    pause() {}
 
-    this.reset = function() {
-        positionDiff.x = 0;
-        positionDiff.y = 0;
+    reset() {
+        this.positionDiff.x = 0;
+        this.positionDiff.y = 0;
     }
 
-    this.move = function(x, y) {
-        positionDiff.x += x;
-        positionDiff.y += y;
+    move(x, y) {
+        this.positionDiff.x += x;
+        this.positionDiff.y += y;
     }
 
-    this.getLocation = function() {
+    getLocation() {
         return {
-            'x': this.settings.x.value + positionDiff.x,
-            'y': this.settings.y.value + positionDiff.y,
+            'x': this.settings.x.value + this.positionDiff.x,
+            'y': this.settings.y.value + this.positionDiff.y,
             'width': this.settings.width.value,
             'height': this.settings.height.value
         }
     }
 
-    this.draw = function(info) {
+    draw(info) {
         info.canvasContext.fillStyle = this.settings.fillStyle.value;
         info.canvasContext.fillRect(
-            this.settings.x.value + positionDiff.x,
-            this.settings.y.value + positionDiff.y,
+            this.settings.x.value + this.positionDiff.x,
+            this.settings.y.value + this.positionDiff.y,
             this.settings.width.value,
             this.settings.height.value
         );
     }
 
-    this.addCollisionHandler = function(callback) {
+    addCollisionHandler(callback) {
         collisionHandlers.push(callback);
     }
 
-    this.onCollision = function(info) {
+    onCollision(info) {
         for (var ch in collisionHandlers) {
             collisionHandlers[ch](this, info);
         }

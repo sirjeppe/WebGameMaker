@@ -1,11 +1,11 @@
 'use strict';
 
-function SimpleControllerPlugin() {
+class SimpleControllerPlugin {
 
-    this.type = 'controller';
-    this.state = 'paused';
+    type = 'controller';
+    state = 'paused';
 
-    this.settings = {
+    settings = {
         'id': {
             'name': 'ID',
             'initialValue': 'simpleController',
@@ -38,7 +38,7 @@ function SimpleControllerPlugin() {
         }
     };
 
-    this.initialize = function() {
+    initialize() {
         var object = WebGameMaker.Game.getPluginById(this.settings.objectID.value);
         object.addCollisionHandler(bind(this, function(obj, info) {
             var topCollision = info.collidedWith[0].collisionData.topLeftCollision &&
@@ -59,20 +59,20 @@ function SimpleControllerPlugin() {
         }));
     }
 
-    this.play = function() {
+    play() {
         this.state = 'playing';
         bind(this, this.update)();
     }
 
-    this.pause = function() {
+    pause() {
         this.state = 'paused';
     }
 
-    this.reset = function() {
+    reset() {
         this.pause();
     }
 
-    this.update = function() {
+    update() {
         if (this.state != 'playing')
             return;
 

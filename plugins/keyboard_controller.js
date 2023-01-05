@@ -1,12 +1,12 @@
 'use strict';
 
-function KeyboardControllerPlugin() {
+class KeyboardControllerPlugin {
 
-    this.type = 'controller';
-    this.state = 'paused';
-    this.listenersAdded = false;
+    type = 'controller';
+    state = 'paused';
+    listenersAdded = false;
 
-    this.settings = {
+    settings = {
         'id': {
             'name': 'ID',
             'initialValue': 'keyboardController',
@@ -33,9 +33,9 @@ function KeyboardControllerPlugin() {
         },
     };
 
-    this.initialize = function() {}
+    initialize() {}
 
-    this.play = function() {
+    play() {
         this.state = 'playing';
         if (!this.listenersAdded) {
             this.setEventListeners();
@@ -43,15 +43,15 @@ function KeyboardControllerPlugin() {
         }
     }
 
-    this.pause = function() {
+    pause() {
         this.state = 'paused';
     }
 
-    this.reset = function() {
+    reset() {
         this.pause();
     }
 
-    this.setEventListeners = function() {
+    setEventListeners() {
         document.addEventListener('keydown', bind(this, function(ev) {
             if (this.state != 'playing')
                 return;
@@ -71,6 +71,8 @@ function KeyboardControllerPlugin() {
             } else if (ev.which == 39) {
                 object.move(this.settings.speedX.value, 0);
             }
+
+            ev.handled = true;
         }));
     }
 }

@@ -1,11 +1,11 @@
 'use strict';
 
-function SimpleCounter() {
+class SimpleCounter {
 
-    this.type = 'controller';
-    this.state = 'paused';
+    type = 'controller';
+    state = 'paused';
 
-    this.settings = {
+    settings = {
         'id': {
             'name': 'ID',
             'type': 'text',
@@ -32,7 +32,7 @@ function SimpleCounter() {
         },
     };
 
-    this.initialize = function() {
+    initialize() {
         var object = WebGameMaker.Game.getPluginById(this.settings.objectID.value);
         object.addCollisionHandler(bind(this, function(obj, info) {
             if (this.state != 'playing') {
@@ -42,17 +42,17 @@ function SimpleCounter() {
         }));
     };
 
-    this.play = function() {
+    play() {
         this.state = 'playing';
     };
 
-    this.pause = function() {
+    pause() {
         this.state = 'paused';
         this.value.value = this.value.initialValue;
         this.step.value = this.step.initialValue;
     };
 
-    this.reset = function() {
+    reset() {
         this.pause();
     };
 

@@ -1,10 +1,10 @@
 'use strict';
 
-function CollisionDetector() {
+class CollisionDetector {
 
-    var objects = [];
+    objects = [];
 
-    this.collide = function(object1, object2) {
+    collide(object1, object2) {
         var pos1 = object1.getLocation();
         var pos2 = object2.getLocation();
 
@@ -110,7 +110,7 @@ function CollisionDetector() {
         return null;
     };
 
-    this.intersectHelper = function(pos1, pos2) {
+    intersectHelper(pos1, pos2) {
         return (
             (
                 (pos1.x >= pos2.x && pos1.x <= pos2.x + pos2.width) &&
@@ -122,16 +122,16 @@ function CollisionDetector() {
         );
     };
 
-    this.addObject = function(object) {
-        objects.push(object);
+    addObject(object) {
+        this.objects.push(object);
     };
 
-    this.findCollisions = function(object) {
+    findCollisions(object) {
         var collidedWith = [];
-        for (var i = 0; i < objects.length; i++) {
+        for (var i = 0; i < this.objects.length; i++) {
 
-            if (object.settings.id.value != objects[i].settings.id.value) {
-                var collisionData = this.collide(object, objects[i]);
+            if (object.settings.id.value != this.objects[i].settings.id.value) {
+                var collisionData = this.collide(object, this.objects[i]);
                 if (collisionData) {
                     collidedWith.push({
                         'objectID': objects[i].settings.id.value,

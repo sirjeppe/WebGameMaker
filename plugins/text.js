@@ -1,10 +1,10 @@
 'use strict';
 
-function Text() {
+class Text {
 
-    this.type = 'object';
+    type = 'object';
 
-    this.settings = {
+    settings = {
         'id': {
             'name': 'ID',
             'initialValue': 'text1',
@@ -66,7 +66,7 @@ function Text() {
         },
     };
 
-    this.draw = function(info) {
+    draw(info) {
         info.canvasContext.fillStyle = this.settings.fillStyle.value;
         info.canvasContext.font = this.settings.fontSize.value + 'px ' +
             this.settings.font.value;

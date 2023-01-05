@@ -1,91 +1,75 @@
 'use strict';
 
-function Game() {
+class Game {
 
-    var plugins = [];
-    var collisionDetector = new CollisionDetector;
+    plugins = [];
+    collisionDetector = new CollisionDetector();
 
-    this.play = function() {
-        for (var p in plugins) {
-            plugins[p].initialize();
-            plugins[p].play();
+    play() {
+        for (let plugin of this.plugins) {
+            plugin.initialize();
+            plugin.play();
         }
     }
 
-    this.pause = function() {
-        for (var p in plugins) {
-            plugins[p].pause();
+    pause() {
+        for (let plugin of this.plugins) {
+            plugin.pause();
         }
     }
 
-    this.reset = function() {
-        for (var p in plugins) {
-            plugins[p].reset();
+    reset() {
+        for (let plugin of this.plugins) {
+            plugin.reset();
         }
     }
 
-    this.getPluginInstances = function() {
-        plugins.sort(this.sortPluginsByID);
-        return plugins;
+    getPluginInstances() {
+        this.plugins.sort(this.sortPluginsByID);
+        return this.plugins;
     }
 
-    this.getPluginInstancesByType = function(objectType) {
-        var pluginsByType = [];
-        for (var p in plugins) {
-            if (plugins[p].type == objectType) {
-                pluginsByType.push(plugins[p]);
-            }
-        }
-        return pluginsByType;
+    getPluginInstancesByType(objectType) {
+        return this.plugins.filter(plugin => plugin.type == objectType);
     }
 
-    this.addPluginInstance = function(instance) {
+    addPluginInstance(instance) {
         if (instance.type == 'object')
-            collisionDetector.addObject(instance);
+            this.collisionDetector.addObject(instance);
 
-        plugins.push(instance);
+        this.plugins.push(instance);
     }
 
-    this.removePluginInstance = function(pluginID) {
-        for (var p in plugins) {
-            if (plugins[p].settings.id.value == pluginID) {
-                plugins.splice(p, 1);
-                break;
-            }
-        }
+    removePluginInstance(pluginID) {
+        this.plugins.splice(this.plugins.findIndex(plugin => plugin.settings.id.value === pluginID), 1);
     }
 
-    this.draw = function(drawInfo) {
-        var objectsToDraw = this.getPluginInstancesByType('object');
+    draw(drawInfo) {
+        let objectsToDraw = this.getPluginInstancesByType('object');
         objectsToDraw.sort(this.sortPluginsByZIndex);
-        for (var p in objectsToDraw) {
-            if (objectsToDraw[p].type == 'object') {
-                if (objectsToDraw[p].settings.collides.value) {
-                    collisionDetector.findCollisions(objectsToDraw[p]);
+        for (let plugin of objectsToDraw) {
+            if (plugin.type == 'object') {
+                if (plugin.settings.collides.value) {
+                    this.collisionDetector.findCollisions(plugin);
                 }
-                objectsToDraw[p].draw(drawInfo);
+                plugin.draw(drawInfo);
             }
         }
     }
 
-    this.getPluginById = function(id) {
-        for (var p in plugins) {
-            if (plugins[p].settings.id.value == id) {
-                return plugins[p];
-            }
-        }
-        return null;
+    getPluginById(id) {
+        return this.plugins.find(plugin => plugin.settings.id.value === id);
     }
 
-    this.getPluginByPosition = function(x, y) {
-        var subjects = [];
-        for (var p in plugins) {
-            if (plugins[p].type == 'object') {
-                if (x > plugins[p].settings.x.value &&
-                    x < plugins[p].settings.x.value + plugins[p].settings.width.value &
-                    y > plugins[p].settings.y.value &&
-                    y < plugins[p].settings.y.value + plugins[p].settings.height.value) {
-                    subjects.push(plugins[p]);
+    getPluginByPosition(x, y) {
+        let subjects = [];
+        for (let plugin of this.plugins) {
+            if (plugin.type == 'object') {
+                if (x > plugin.settings.x.value &&
+                    x < plugin.settings.x.value + plugin.settings.width.value &
+                    y > plugin.settings.y.value &&
+                    y < plugin.settings.y.value + plugin.settings.height.value) {
+                    subjects.push(plugin);
                 }
             }
         }
@@ -93,42 +77,38 @@ function Game() {
         return subjects.pop();
     }
 
-    this.sortPluginsByZIndex = function(a, b) {
+    sortPluginsByZIndex(a, b) {
         if (a.settings.zIndex && b.settings.zIndex) {
             return (a.settings.zIndex.value < b.settings.zIndex.value) ? -1 : 1;
         }
     }
 
-    this.sortPluginsByID = function(a, b) {
+    sortPluginsByID(a, b) {
         if (a.settings.id && b.settings.id) {
             return (a.settings.id.value < b.settings.id.value) ? -1 : 1;
         }
     }
 
-    this.bringToFront = function(obj) {
+    bringToFront(obj) {
         if (!'zIndex' in obj.settings) return;
 
-        var highestZIndex = 0;
-        for (var p in plugins) {
-            if (plugins[p].type == 'object') {
-                if (plugins[p].settings.zIndex.value > highestZIndex) {
-                    highestZIndex = plugins[p].settings.zIndex.value;
-                }
+        let highestZIndex = 0;
+        for (let plugin of this.plugins) {
+            if (plugin.type == 'object') {
+                highestZIndex = max(highestZIndex, plugin.settings.zIndex.value);
             }
         }
 
         obj.settings.zIndex.value = highestZIndex + 1;
     }
 
-    this.sendToBack = function(obj) {
+    sendToBack(obj) {
         if (!'zIndex' in obj.settings) return;
 
-        var lowestZIndex = 0;
-        for (var p in plugins) {
-            if (plugins[p].type == 'object') {
-                if (plugins[p].settings.zIndex.value < lowestZIndex) {
-                    lowestZIndex = plugins[p].settings.zIndex.value;
-                }
+        let lowestZIndex = 0;
+        for (let plugin of this.plugins) {
+            if (plugin.type == 'object') {
+                lowestZIndex = min(lowestZIndex, plugin.settings.zIndex.value);
             }
         }
 
