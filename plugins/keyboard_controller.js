@@ -1,8 +1,13 @@
 'use strict';
 
-class KeyboardControllerPlugin {
+import { Controller } from "../core/controller.js";
 
-    type = 'controller';
+export class KeyboardController extends Controller {
+
+    static getDescription() {
+        return 'Controller that uses keyboard input for moving objects.';
+    }
+
     state = 'paused';
     listenersAdded = false;
 
@@ -72,13 +77,7 @@ class KeyboardControllerPlugin {
                 object.move(this.settings.speedX.value, 0);
             }
 
-            ev.handled = true;
+            ev.default = true;
         }));
     }
 }
-
-KeyboardControllerPlugin.prototype.name = 'KeyboardController';
-KeyboardControllerPlugin.prototype.description = 'Controller that uses keyboard ' +
-    'input for moving objects.';
-
-WebGameMaker.PluginManager.registerPlugin(KeyboardControllerPlugin);

@@ -1,6 +1,12 @@
 'use strict';
 
-class SimpleCounter {
+import { GameObject } from "../core/game_object.js";
+
+export class SimpleCounter extends GameObject {
+
+    static getDescription() {
+        return 'A very simple plugin that lets you increment or decrement an integer with a fixed value.';
+    }
 
     type = 'controller';
     state = 'paused';
@@ -57,9 +63,3 @@ class SimpleCounter {
     };
 
 }
-
-SimpleCounter.prototype.name = 'SimpleCounter';
-SimpleCounter.prototype.description = 'A very simple plugin that lets you increment ' +
-    'or decrement an integer with a fixed value.';
-
-WebGameMaker.PluginManager.registerPlugin(SimpleCounter);

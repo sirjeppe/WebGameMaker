@@ -4,24 +4,24 @@
 <head>
     <title>WebGameMaker</title>
     <meta http-equiv="cache-control" content="no-cache">
-    <script src="core/web_game_maker.js"></script>
+    <script type="module" src="core/web_game_maker.js"></script>
     <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
+    <div id="top_bar"></div>
     <div id="left_bar">
-        <div class="box">
+        <!-- <div class="box">
             <input type="button" value="Play" onclick="WebGameMaker.Game.play()">
             <input type="button" value="Reset" onclick="WebGameMaker.Game.reset()">
             <input type="button" value="Pause" onclick="WebGameMaker.Game.pause()">
-        </div>
+        </div> -->
         <div id="plugin_list" class="box">
         </div>
     </div>
     <div id="right_bar">
         <div id="active_plugins_box" class="box">
-            <select id="active_plugins" onchange="WebGameMaker.setActivePluginInstance(
-                      WebGameMaker.Game.getPluginById(this.options[this.selectedIndex].value))">
+            <select id="active_plugins">
                 <option value="">No active plugins</option>
             </select>
         </div>

@@ -1,8 +1,18 @@
 'use strict';
 
-class AudioSynthesizerPlugin {
+import { AudioSource } from "../core/audio/audio_source.js";
 
-    type = 'controller';
+export class AudioSynthesizer extends AudioSource {
+    audioContext;
+
+    constructor() {
+        super();
+        this.audioContext = new AudioContext();
+    }
+
+    static getDescription() {
+        return 'A simple synthesizer using the Web Audio API';
+    }
 
     play() {
         var pattern = /(1|2|4|8|16|32|64|128)(-|((c|c#|d|d#|e|f|f#|g|g#|a|a#|b)[0-9]))/g;
@@ -110,12 +120,12 @@ class AudioSynthesizerPlugin {
             'value': '16c4 16e4 16g4 16c5 16- 16g4 4c5',
             'type': 'text'
         },
-        'play': {
-            'name': 'Play',
-            'initialValue': 'Play/Stop',
-            'value': 'Play/Stop',
+        'preview': {
+            'name': 'Preview',
+            'initialValue': 'Preview',
+            'value': 'Preview',
             'type': 'button',
-            'onclick': bind(this, this.play)
+            'onclick': this.play.bind(this)
         }
     }
 
@@ -143,14 +153,4 @@ class AudioSynthesizerPlugin {
         }));
     };
 
-}
-
-try {
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    AudioSynthesizerPlugin.prototype.name = 'AudioSynthesizer';
-    AudioSynthesizerPlugin.prototype.description = 'A simple synthesizer using the Web Audio API';
-    AudioSynthesizerPlugin.prototype.audioContext = new AudioContext();
-    WebGameMaker.PluginManager.registerPlugin(AudioSynthesizerPlugin);
-} catch (e) {
-    console.log('No web audio oscillator support in this browser: ' + e);
 }

@@ -19,6 +19,24 @@ ul, li {
     list-style-type: none;
 }
 
+#top_bar {
+    width: 100%;
+    background: #555;
+    padding: 0;
+}
+
+#top_bar > div {
+    display: inline-block;
+    padding: 0.2em 0.8em;
+    margin: 1px 0;
+    cursor: pointer;
+    border-right: 1px solid #333;
+}
+
+#top_bar > div:hover {
+    background: #444;
+}
+
 #left_bar {
     float: left;
     margin-left: 20px;
@@ -118,6 +136,7 @@ input[type="button"].addToGame {
     left: 0;
     margin: 2px;
     border: 1px solid #444;
+    z-index: -1;
 }
 
 #active_plugins_box {

@@ -1,86 +1,98 @@
 'use strict';
 
-class SpritePlugin {
+import { Drawable } from "../core/drawable.js";
+import { AttributeTypes } from "../core/game_object_attribute.js";
 
-    type = 'object';
+export class Sprite extends Drawable {
 
-    settings = {
-        'id': {
-            'name': 'ID',
-            'initialValue': 'sprite',
-            'value': 'sprite',
-            'type': 'text',
-        },
-        'x': {
-            'name': 'X',
-            'initialValue': 0,
-            'value': 0,
-            'type': 'number',
-        },
-        'y': {
-            'name': 'Y',
-            'initialValue': 0,
-            'value': 0,
-            'type': 'number',
-        },
-        'width': {
-            'name': 'Width',
-            'initialValue': 100,
-            'value': 100,
-            'type': 'number',
-        },
-        'height': {
-            'name': 'Height',
-            'initialValue': 100,
-            'value': 100,
-            'type': 'number',
-        },
-        'zIndex': {
-            'name': 'Z index',
-            'initialValue': 1,
-            'value': 1,
-            'type': 'number',
-        },
-        'speedX': {
-            'name': 'X speed',
-            'initialValue': 0,
-            'value': 0,
-            'type': 'number',
-            'extraAttributes': {
-                'step': 'any'
-            },
-        },
-        'speedY': {
-            'name': 'Y speed',
-            'initialValue': 0,
-            'value': 0,
-            'type': 'number',
-            'extraAttributes': {
-                'step': 'any'
-            },
-        },
-        'collides': {
-            'name': 'Collides',
-            'initialValue': true,
-            'value': true,
-            'type': 'checkbox',
-        },
-        'weight': {
-            'name': 'Weight',
-            'initialValue': 1,
-            'value': 1,
-            'type': 'number',
-            'extraAttributes': {
-                'step': 'any'
-            },
-        },
-        'fillStyle': {
-            'name': 'Fill color',
-            'initialValue': '#0000ff',
-            'value': '#0000ff',
-            'type': 'color',
-        },
-    };
+    constructor() {
+        super();
+
+        this.setAttribute(AttributeTypes.Number, 'width', 100)
+            .setAttribute(AttributeTypes.Number, 'height', 100);
+    }
+
+    static getDescription() {
+        return 'Adds a sprite to the game';
+    }
+
+    // settings = {
+    //     'id': {
+    //         'name': 'ID',
+    //         'initialValue': 'sprite',
+    //         'value': 'sprite',
+    //         'type': 'text',
+    //     },
+    //     'x': {
+    //         'name': 'X',
+    //         'initialValue': 0,
+    //         'value': 0,
+    //         'type': 'number',
+    //     },
+    //     'y': {
+    //         'name': 'Y',
+    //         'initialValue': 0,
+    //         'value': 0,
+    //         'type': 'number',
+    //     },
+    //     'width': {
+    //         'name': 'Width',
+    //         'initialValue': 100,
+    //         'value': 100,
+    //         'type': 'number',
+    //     },
+    //     'height': {
+    //         'name': 'Height',
+    //         'initialValue': 100,
+    //         'value': 100,
+    //         'type': 'number',
+    //     },
+    //     'zIndex': {
+    //         'name': 'Z index',
+    //         'initialValue': 1,
+    //         'value': 1,
+    //         'type': 'number',
+    //     },
+    //     'speedX': {
+    //         'name': 'X speed',
+    //         'initialValue': 0,
+    //         'value': 0,
+    //         'type': 'number',
+    //         'extraAttributes': {
+    //             'step': 'any'
+    //         },
+    //     },
+    //     'speedY': {
+    //         'name': 'Y speed',
+    //         'initialValue': 0,
+    //         'value': 0,
+    //         'type': 'number',
+    //         'extraAttributes': {
+    //             'step': 'any'
+    //         },
+    //     },
+    //     'collides': {
+    //         'name': 'Collides',
+    //         'initialValue': true,
+    //         'value': true,
+    //         'type': 'checkbox',
+    //     },
+    //     'weight': {
+    //         'name': 'Weight',
+    //         'initialValue': 1,
+    //         'value': 1,
+    //         'type': 'number',
+    //         'extraAttributes': {
+    //             'step': 'any'
+    //         },
+    //     },
+    //     'fillStyle': {
+    //         'name': 'Fill color',
+    //         'initialValue': '#0000ff',
+    //         'value': '#0000ff',
+    //         'type': 'color',
+    //     },
+    // };
 
     collisionHandlers = [];
 
@@ -109,35 +121,30 @@ class SpritePlugin {
 
     getLocation() {
         return {
-            'x': this.settings.x.value + this.positionDiff.x,
-            'y': this.settings.y.value + this.positionDiff.y,
-            'width': this.settings.width.value,
-            'height': this.settings.height.value
+            'x': this.getAttribute('x').value + this.positionDiff.x,
+            'y': this.getAttribute('y').value + this.positionDiff.y,
+            'width': this.getAttribute('width').value,
+            'height': this.getAttribute('height').value
         }
     }
 
     draw(info) {
-        info.canvasContext.fillStyle = this.settings.fillStyle.value;
+        info.canvasContext.fillStyle = this.getAttribute('fillStyle').value;
         info.canvasContext.fillRect(
-            this.settings.x.value + this.positionDiff.x,
-            this.settings.y.value + this.positionDiff.y,
-            this.settings.width.value,
-            this.settings.height.value
+            this.getAttribute('x').value + this.positionDiff.x,
+            this.getAttribute('y').value + this.positionDiff.y,
+            this.getAttribute('width').value,
+            this.getAttribute('height').value
         );
     }
 
     addCollisionHandler(callback) {
-        collisionHandlers.push(callback);
+        this.collisionHandlers.push(callback);
     }
 
     onCollision(info) {
-        for (var ch in collisionHandlers) {
-            collisionHandlers[ch](this, info);
+        for (const ch of this.collisionHandlers) {
+            ch(this, info);
         }
     }
 }
-
-SpritePlugin.prototype.name = 'Sprite';
-SpritePlugin.prototype.description = 'Adds a sprite to the game';
-
-WebGameMaker.PluginManager.registerPlugin(SpritePlugin);

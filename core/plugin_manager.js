@@ -5,64 +5,68 @@
  * should offer a suitable interface for querying for plugins, such as searching
  * by name or other properties.
  */
-class PluginManager {
+export class PluginManager {
+  wgm;
 
-    /**
-     * List of all the plugins that is available. The objects in this list are
-     * used for creating new plugin instances (they are not instances
-     * themselves).
-     */
-    installedPlugins = [];
+  /**
+   * List of all the plugins that is available. The objects in this list are
+   * used for creating new plugin instances (they are not instances
+   * themselves).
+   */
+  #registeredPlugins = [];
 
-    registerPlugin(plugin) {
-        this.installedPlugins.push(plugin);
+  constructor(wgm) {
+    this.wgm = wgm;
+  }
+
+  #registerPlugin(plugin) {
+    this.#registeredPlugins.push(plugin);
+  }
+
+  getPlugins() {
+    return this.#registeredPlugins;
+  }
+
+  getPluginByName(name) {
+    for (const plugin of this.#registeredPlugins) {
+      if (plugin.name === name) {
+        return plugin;
+      }
     }
+    return undefined;
+  }
 
-    getPlugins() {
-        return this.installedPlugins;
+  #parseHTMLFileList(pluginsFolder, fileListHTML) {
+    // Match all href="<something>.js"
+    const matches = [...fileListHTML.matchAll(/href=\"([^\"]+\.js)\"/g)];
+    const fileList = [];
+    for (const match of matches) {
+      fileList.push(match[1].split('/').pop());
     }
+    // Make sure folder name is present
+    for (var i in fileList) {
+      fileList[i] = `../${pluginsFolder}/${fileList[i]}`;
+    }
+    return fileList;
+  }
 
-    getPluginByName(name) {
-        for (var p in this.installedPlugins) {
-            if (this.installedPlugins[p].prototype.name == name) {
-                return this.installedPlugins[p];
-            }
+  findAndRegisterPlugins(pluginsFolder, callback) {
+    const cls = this;
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = async (xhr) => {
+      if (xhr.target.status == 200 && xhr.target.readyState == 4) {
+        const fileList = this.#parseHTMLFileList(pluginsFolder, xhr.target.responseText);
+        for (const pluginFile of fileList) {
+          let module = await import(pluginFile);
+          cls.#registerPlugin(module[Object.keys(module)[0]]);
         }
-        return undefined;
-    }
-
-    addPluginsFolderPath(pluginsFolder, fileList) {
-        // Make sure folder name is present
-        var fixedFileList = (typeof fileList != 'object') ? JSON.parse(fileList) : fileList;
-        for (var i in fixedFileList) {
-            fixedFileList[i] = pluginsFolder + '/' + fixedFileList[i];
+        if (callback) {
+          callback();
         }
-        return fixedFileList;
-    }
-
-    findAndInjectPlugins(pluginsFolder, callback) {
-        if (document.location.protocol == 'http:' || document.location.protocol == 'https:') {
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = bind(this, function() {
-                if (xhr.status == 200 && xhr.readyState == 4) {
-                    var fileList = this.addPluginsFolderPath(pluginsFolder, xhr.responseText);
-                    WebGameMaker.injectScripts(fileList, callback);
-                }
-            });
-            xhr.open('GET', pluginsFolder + '/plugins.php?cmd=list', true);
-            xhr.send();
-        } else {
-            // We're offline - use offline list instead
-            var s = document.createElement('script');
-            s.src = pluginsFolder + '/installed_plugins.js';
-            s.onload = bind(this, function() {
-                var fileList = this.addPluginsFolderPath(pluginsFolder, WebGameMaker.setup.installedPlugins);
-                WebGameMaker.injectScripts(fileList, callback);
-            });
-            document.querySelector('head').appendChild(s);
-        }
-    }
+      }
+    };
+    xhr.open('GET', pluginsFolder, true);
+    xhr.send();
+  }
 
 }
-
-WebGameMaker.PluginManager = new PluginManager();

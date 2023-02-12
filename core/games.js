@@ -1,25 +1,60 @@
-class Games {
+'use strict';
 
-    registeredGames = [];
+export class Games {
 
-    registerGame(game) {
-        this.registeredGames.push(game);
+  #registeredGames = [];
+
+  constructor() {
+    // TODO: läs in alla js-filer från ../games och lägg i this.registeredGames
+  }
+
+  #registerGame(game) {
+    this.#registeredGames.push(game);
+  }
+
+  getGames() {
+    return this.#registeredGames;
+  }
+
+  getGameByName(name) {
+    for (const game of this.#registeredGames) {
+      if (game.name == name) {
+        return game;
+      }
     }
+    throw Error('Could not find the requested game: ' + name);
+  }
 
-    getGames(index) {
-        return this.registeredGames;
+  #parseHTMLFileList(gamesFolder, fileListHTML) {
+    // Match all href="<something>.js"
+    const matches = [...fileListHTML.matchAll(/href=\"([^\"]+\.js)\"/g)];
+    const fileList = [];
+    for (const match of matches) {
+      fileList.push(match[1].split('/').pop());
     }
+    // Make sure folder name is present
+    for (var i in fileList) {
+      fileList[i] = `../${gamesFolder}/${fileList[i]}`;
+    }
+    return fileList;
+  }
 
-    getGameByName(name) {
-        console.log('looking for game: ' + name);
-        for (var g in this.registeredGames) {
-            if (this.registeredGames[g].prototype.name == name) {
-                console.log('Found the game, name = ' + name);
-                return this.registeredGames[g];
-            }
+  findAndRegisterSavedGames(gamesFolder, callback) {
+    const cls = this;
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = async (xhr) => {
+      if (xhr.target.status == 200 && xhr.target.readyState == 4) {
+        const fileList = this.#parseHTMLFileList(gamesFolder, xhr.target.responseText);
+        for (const gameFile of fileList) {
+          let module = await import(gameFile);
+          cls.#registerGame(module[Object.keys(module)[0]]);
         }
-        throw Error('Could not find the requested game: ' + name);
-    }
+        if (callback) {
+          callback();
+        }
+      }
+    };
+    xhr.open('GET', gamesFolder, true);
+    xhr.send();
+  }
 }
-
-WebGameMaker.Games = new Games;

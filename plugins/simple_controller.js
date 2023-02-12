@@ -1,6 +1,12 @@
 'use strict';
 
-class SimpleControllerPlugin {
+import { GameObject } from "../core/game_object.js";
+
+export class SimpleController extends GameObject {
+
+    static getDescription() {
+        return 'Simple controller for moving objects around';
+    }
 
     type = 'controller';
     state = 'paused';
@@ -39,15 +45,15 @@ class SimpleControllerPlugin {
     };
 
     initialize() {
-        var object = WebGameMaker.Game.getPluginById(this.settings.objectID.value);
+        let object = WebGameMaker.Game.getPluginById(this.settings.objectID.value);
         object.addCollisionHandler(bind(this, function(obj, info) {
-            var topCollision = info.collidedWith[0].collisionData.topLeftCollision &&
+            let topCollision = info.collidedWith[0].collisionData.topLeftCollision &&
                 info.collidedWith[0].collisionData.topRightCollision;
-            var rightCollision = info.collidedWith[0].collisionData.topRightCollision &&
+            let rightCollision = info.collidedWith[0].collisionData.topRightCollision &&
                 info.collidedWith[0].collisionData.bottomRightCollision;
-            var bottomCollision = info.collidedWith[0].collisionData.bottomRightCollision &&
+            let bottomCollision = info.collidedWith[0].collisionData.bottomRightCollision &&
                 info.collidedWith[0].collisionData.bottomLeftCollision;
-            var leftCollision = info.collidedWith[0].collisionData.bottomLeftCollision &&
+            let leftCollision = info.collidedWith[0].collisionData.bottomLeftCollision &&
                 info.collidedWith[0].collisionData.topLeftCollision;
             if (topCollision || bottomCollision) {
                 this.settings.speedY.value = -this.settings.speedY.value;
@@ -76,7 +82,7 @@ class SimpleControllerPlugin {
         if (this.state != 'playing')
             return;
 
-        var object = WebGameMaker.Game.getPluginById(this.settings.objectID.value);
+        let object = WebGameMaker.Game.getPluginById(this.settings.objectID.value);
 
         if (object)
             object.move(this.settings.speedX.value, this.settings.speedY.value);
@@ -86,9 +92,3 @@ class SimpleControllerPlugin {
         setTimeout(bind(this, this.update), this.settings.timeInterval.value);
     }
 }
-
-SimpleControllerPlugin.prototype.name = 'SimpleController';
-SimpleControllerPlugin.prototype.description = 'Simple controller for moving ' +
-    'objects around';
-
-WebGameMaker.PluginManager.registerPlugin(SimpleControllerPlugin);

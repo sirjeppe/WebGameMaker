@@ -1,76 +1,76 @@
 'use strict';
 
-class CollisionDetector {
+export class CollisionDetector {
 
     objects = [];
 
     collide(object1, object2) {
-        var pos1 = object1.getLocation();
-        var pos2 = object2.getLocation();
+        let pos1 = object1.getLocation();
+        let pos2 = object2.getLocation();
 
-        var width = pos1.width / 2;
-        var height = pos1.height / 2;
+        let width = pos1.width / 2;
+        let height = pos1.height / 2;
 
-        var topLeft1 = {
+        let topLeft1 = {
             'x': pos1.x,
             'y': pos1.y,
             'width': width,
             'height': height,
         };
 
-        var topRight1 = {
+        let topRight1 = {
             'x': pos1.x + width,
             'y': pos1.y,
             'width': width,
             'height': height,
         };
 
-        var bottomLeft1 = {
+        let bottomLeft1 = {
             'x': pos1.x,
             'y': pos1.y + height,
             'width': width,
             'height': height,
         };
 
-        var bottomRight1 = {
+        let bottomRight1 = {
             'x': pos1.x + width,
             'y': pos1.y + height,
             'width': width,
             'height': height,
         };
 
-        var topLeft2 = {
+        let topLeft2 = {
             'x': pos2.x,
             'y': pos2.y,
             'width': width,
             'height': height,
         };
 
-        var topRight2 = {
+        let topRight2 = {
             'x': pos2.x + width,
             'y': pos2.y,
             'width': width,
             'height': height,
         };
 
-        var bottomLeft2 = {
+        let bottomLeft2 = {
             'x': pos2.x,
             'y': pos2.y + height,
             'width': width,
             'height': height,
         };
 
-        var bottomRight2 = {
+        let bottomRight2 = {
             'x': pos2.x + width,
             'y': pos2.y + height,
             'width': width,
             'height': height,
         };
 
-        var topLeftCollision = false;
-        var topRightCollision = false;
-        var bottomRightCollision = false;
-        var bottomLeftCollision = false;
+        let topLeftCollision = false;
+        let topRightCollision = false;
+        let bottomRightCollision = false;
+        let bottomLeftCollision = false;
 
         if (this.intersectHelper(topLeft1, topRight2) ||
             this.intersectHelper(topLeft1, bottomLeft2) ||
@@ -96,7 +96,7 @@ class CollisionDetector {
             bottomRightCollision = true;
         }
 
-        var collisionData = {
+        let collisionData = {
             'topLeftCollision': topLeftCollision,
             'topRightCollision': topRightCollision,
             'bottomRightCollision': bottomRightCollision,
@@ -127,14 +127,13 @@ class CollisionDetector {
     };
 
     findCollisions(object) {
-        var collidedWith = [];
-        for (var i = 0; i < this.objects.length; i++) {
-
-            if (object.settings.id.value != this.objects[i].settings.id.value) {
-                var collisionData = this.collide(object, this.objects[i]);
+        let collidedWith = [];
+        for (let i = 0; i < this.objects.length; i++) {
+            if (object.settings.id.value !== this.objects[i].settings.id.value) {
+                let collisionData = this.collide(object, this.objects[i]);
                 if (collisionData) {
                     collidedWith.push({
-                        'objectID': objects[i].settings.id.value,
+                        'objectID': this.objects[i].settings.id.value,
                         'collisionData': collisionData
                     });
                 }

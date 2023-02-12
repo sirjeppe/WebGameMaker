@@ -1,8 +1,9 @@
 'use strict';
 
-class MouseControllerPlugin {
+import { Controller } from "../core/controller.js";
 
-    type = 'controller';
+export class MouseController extends Controller {
+
     state = 'paused';
     listenersAdded = false;
 
@@ -32,6 +33,10 @@ class MouseControllerPlugin {
             'type': 'actionList',
         },
     };
+
+    static getDescription() {
+        return 'Controller that uses mouse to interact with objects.';
+    }
 
     initialize() {}
 
@@ -69,9 +74,3 @@ class MouseControllerPlugin {
         );
     }
 }
-
-MouseControllerPlugin.prototype.name = 'MouseController';
-MouseControllerPlugin.prototype.description = 'Controller that uses mouse ' +
-    'to interact with objects.';
-
-WebGameMaker.PluginManager.registerPlugin(MouseControllerPlugin);

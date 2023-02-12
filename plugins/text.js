@@ -1,85 +1,31 @@
 'use strict';
 
-class Text {
+import { Drawable } from "../core/drawable.js";
+import { AttributeTypes } from "../core/game_object_attribute.js";
 
-    type = 'object';
+export class Text extends Drawable {
 
-    settings = {
-        'id': {
-            'name': 'ID',
-            'initialValue': 'text1',
-            'value': 'text1',
-            'type': 'text',
-        },
-        'font': {
-            'name': 'Font',
-            'initialValue': 'sans-serif',
-            'value': 'sans-serif',
-            'type': 'text',
-            'values': [
-                'fantasy',
-                'sans-serif',
-                'serif',
-            ]
-        },
-        'fontSize': {
-            'name': 'Font size (px)',
-            'initialValue': 30,
-            'value': 30,
-            'type': 'number',
-        },
-        'text': {
-            'name': 'Text',
-            'initialValue': 'Hello World!',
-            'value': 'Hello World!',
-            'type': 'text',
-        },
-        'x': {
-            'name': 'X',
-            'initialValue': 45,
-            'value': 45,
-            'type': 'number',
-        },
-        'y': {
-            'name': 'Y',
-            'initialValue': 60,
-            'value': 60,
-            'type': 'number',
-        },
-        'zIndex': {
-            'name': 'Z index',
-            'initialValue': 1,
-            'value': 1,
-            'type': 'number',
-        },
-        'collides': {
-            'name': 'Collides',
-            'initialValue': false,
-            'value': false,
-            'type': 'checkbox',
-        },
-        'fillStyle': {
-            'name': 'Color',
-            'initialValue': '#456789',
-            'value': '#456789',
-            'type': 'color',
-        },
-    };
+  constructor() {
+    super();
 
-    draw(info) {
-        info.canvasContext.fillStyle = this.settings.fillStyle.value;
-        info.canvasContext.font = this.settings.fontSize.value + 'px ' +
-            this.settings.font.value;
-        info.canvasContext.fillText(
-            this.settings.text.value,
-            this.settings.x.value,
-            this.settings.y.value
-        );
-    };
+    this.setAttribute(AttributeTypes.Boolean, 'collides', false, { defaultValue: false });
+    this.setAttribute(AttributeTypes.String, 'font', 'Verdana', { defaultValue: 'Verdana' });
+    this.setAttribute(AttributeTypes.Number, 'fontSize', 14, { defaultValue: 14 });
+    this.setAttribute(AttributeTypes.String, 'text', 'Sample text', { defaultValue: 'Sample text' });
+  }
+
+  static getDescription() {
+    return 'Lets you add text to the game';
+  }
+
+  draw(info) {
+    info.canvasContext.fillStyle = this.getAttribute('fillStyle').value;
+    info.canvasContext.font = this.getAttribute('fontSize').value + 'px ' + this.getAttribute('font').value;
+    info.canvasContext.fillText(
+      this.getAttribute('text').value,
+      this.getAttribute('x').value,
+      this.getAttribute('y').value
+    );
+  };
 
 }
-
-Text.prototype.name = 'Text';
-Text.prototype.description = 'Lets you add text to the game';
-
-WebGameMaker.PluginManager.registerPlugin(Text);
